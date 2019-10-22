@@ -2,7 +2,7 @@ import axios from 'axios';
 import PromiseState from './PromiseState';
 
 const API = axios.create({
-  baseURL: 'http://www.o2o.com',
+  baseURL: 'http://www.noc.com',
   timeout: 15 * 60 * 1000,
 });
 const Config = {

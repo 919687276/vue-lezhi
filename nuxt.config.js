@@ -14,6 +14,9 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
+    script: [
+      { src: './js/flexible.js', type: 'text/javascript', charset: 'utf-8' },
+    ],
   },
   /*
   ** Customize the progress-bar color
@@ -51,7 +54,7 @@ export default {
     [
       '/api/', // 拦截目录
       {
-        target: 'http://www.o2o.com', // 代理api主机
+        target: 'http://www.noc.com', // 代理api主机
         pathRewrite: { '^/api/': '' },
       },
     ],
@@ -66,5 +69,11 @@ export default {
     // eslint-disable-next-line no-unused-vars
     extend(config, ctx) {
     },
+    postcss: [
+      // eslint-disable-next-line global-require
+      require('postcss-px2rem')({
+        remUnit: 100,
+      }),
+    ],
   },
 };
