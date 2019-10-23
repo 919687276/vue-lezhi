@@ -47,8 +47,9 @@ export default {
         });
     },
     test() {
-      this.spost(this.rs, '/index.php/Admin/Test/index', {
-        index: '123',
+      this.mypost(this.rs, '/index.php/Admin/Test/index', {
+        index: '111122223333',
+        test: '1234',
       }).then((rs) => {
         console.log(rs);
       }).catch(() => {

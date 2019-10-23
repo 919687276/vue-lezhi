@@ -1,10 +1,16 @@
 import axios from 'axios';
 import PromiseState from './PromiseState';
 
+
 const API = axios.create({
   baseURL: 'http://www.noc.com',
   timeout: 15 * 60 * 1000,
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
+  // withCredentials: true,
 });
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 const Config = {
   APIFormat: 'h5proxy',
 };
@@ -15,7 +21,7 @@ export default {
     newStore() {
       return new PromiseState();
     },
-    spost(store, path, data) {
+    mypost(store, path, data) {
       debug('path=%s', path);
       // eslint-disable-next-line no-async-promise-executor
       return new Promise(async (resolve, reject) => {
@@ -33,7 +39,8 @@ export default {
         switch (Config.APIFormat) {
           case 'h5proxy':
             data.__action = path;
-            post = API.post(path, `data=${encodeURIComponent(JSON.stringify(data))}`);
+            // post = API.post(path, JSON.stringify(data));
+            post = API.post(path, encodeURIComponent(JSON.stringify(data)));
             break;
           default:
             return;
