@@ -1,31 +1,40 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">noc</h1>
-      <h2 class="subtitle">My peachy Nuxt.js project</h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-        <input type="button" @click="axiostest()" value="axios" />
-        <input type="button" @click="asyncData1()" value="async" />
-        <input type="button" @click="test()" value="测试" />
-      </div>
-    </div>
-  </div>
+  <el-container>
+    <el-header>
+      <Header></Header>
+    </el-header>
+    <el-main>
+      <el-button @click="test()">测试</el-button>
+      Main
+    </el-main>
+    <el-footer>
+      <Upload></Upload>
+    </el-footer>
+  </el-container>
 </template>
 
 <script>
 import axios from 'axios';
-import Logo from '~/components/Logo.vue';
+import Header from '~/components/Header.vue';
+import Upload from '~/components/Upload.vue';
 
 export default {
   components: {
-    Logo,
+    Header,
+    Upload,
   },
   data() {
     return {
+      filters: {
+        loggedIn: false,
+        user: undefined,
+      },
       rs: this.newStore(),
+    };
+  },
+  provide() {
+    return {
+      filters: this.filters,
     };
   },
   methods: {
@@ -50,11 +59,12 @@ export default {
       this.mypost(this.rs, '/index.php/Admin/Test/index', {
         index: '111122223333',
         test: '1234',
-      }).then((rs) => {
+      }).then(() => {
+        alert('ok');
+      }).catch((rs) => {
         console.log(rs);
-      }).catch(() => {
-        // alert('err');
-        console.log(this.rs);
+        alert('err');
+        // console.log(this.rs);
       });
     },
   },

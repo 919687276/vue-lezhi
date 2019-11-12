@@ -1,1 +1,116 @@
-!(function(){var a="@charset \"utf-8\";html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}html,body{font-family:sans-serif}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}abbr,acronym{border:0;font-variant:normal}del{text-decoration:line-through}address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}q:before,q:after{content:''}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}a:hover{text-decoration:underline}ins,a{text-decoration:none}",b=document.createElement("style");if(document.getElementsByTagName("head")[0].appendChild(b),b.styleSheet)b.styleSheet.disabled||(b.styleSheet.cssText=a);else try{b.innerHTML=a}catch(c){b.innerText=a}}()); !(function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={})));
+(function (window, document) {
+  
+
+  // 给hotcss开辟个命名空间，别问我为什么，我要给你准备你会用到的方法，免得用到的时候还要自己写。
+  let hotcss = {};
+
+  (function () {
+    // 根据devicePixelRatio自定计算scale
+    // 可以有效解决移动端1px这个世纪难题。
+    let viewportEl = document.querySelector('meta[name="viewport"]');
+            var hotcssEl = document.querySelector('meta[name="hotcss"]');
+            var dpr = window.devicePixelRatio || 1;
+            var maxWidth = 540;
+            var designWidth = 0;
+
+    dpr = dpr >= 3 ? 3 : (dpr >= 2 ? 2 : 1);
+
+    // 允许通过自定义name为hotcss的meta头，通过initial-dpr来强制定义页面缩放
+    if (hotcssEl) {
+      let hotcssCon = hotcssEl.getAttribute('content');
+      if (hotcssCon) {
+        let initialDprMatch = hotcssCon.match(/initial\-dpr=([\d\.]+)/);
+        if (initialDprMatch) {
+          dpr = parseFloat(initialDprMatch[1]);
+        }
+        let maxWidthMatch = hotcssCon.match(/max\-width=([\d\.]+)/);
+        if (maxWidthMatch) {
+          maxWidth = parseFloat(maxWidthMatch[1]);
+        }
+        let designWidthMatch = hotcssCon.match(/design\-width=([\d\.]+)/);
+        if (designWidthMatch) {
+          designWidth = parseFloat(designWidthMatch[1]);
+        }
+      }
+    }
+
+    document.documentElement.setAttribute('data-dpr', dpr);
+    hotcss.dpr = dpr;
+
+    document.documentElement.setAttribute('max-width', maxWidth);
+    hotcss.maxWidth = maxWidth;
+
+    if (designWidth) {
+      document.documentElement.setAttribute('design-width', designWidth);
+    }
+    hotcss.designWidth = designWidth; // 保证px2rem 和 rem2px 不传第二个参数时, 获取hotcss.designWidth是undefined导致的NaN
+
+    let scale = 1 / dpr;
+            var content = `width=device-width, initial-scale=${  scale  }, minimum-scale=${  scale  }, maximum-scale=${  scale  }, user-scalable=no`;
+
+    if (viewportEl) {
+      viewportEl.setAttribute('content', content);
+    } else {
+      viewportEl = document.createElement('meta');
+      viewportEl.setAttribute('name', 'viewport');
+      viewportEl.setAttribute('content', content);
+      document.head.appendChild(viewportEl);
+    }
+  }());
+
+  hotcss.px2rem = function (px, designWidth) {
+    // 预判你将会在JS中用到尺寸，特提供一个方法助你在JS中将px转为rem。就是这么贴心。
+    if (!designWidth) {
+      // 如果你在JS中大量用到此方法，建议直接定义 hotcss.designWidth 来定义设计图尺寸;
+      // 否则可以在第二个参数告诉我你的设计图是多大。
+      designWidth = parseInt(hotcss.designWidth, 10);
+    }
+
+    return parseInt(px, 10) * 320 / designWidth / 20;
+  };
+
+  hotcss.rem2px = function (rem, designWidth) {
+    // 新增一个rem2px的方法。用法和px2rem一致。
+    if (!designWidth) {
+      designWidth = parseInt(hotcss.designWidth, 10);
+    }
+    // rem可能为小数，这里不再做处理了
+    return rem * 20 * designWidth / 320;
+  };
+
+  hotcss.mresize = function () {
+    // 对，这个就是核心方法了，给HTML设置font-size。
+    let innerWidth = document.documentElement.getBoundingClientRect().width || window.innerWidth;
+
+    if (hotcss.maxWidth && (innerWidth / hotcss.dpr > hotcss.maxWidth)) {
+      innerWidth = hotcss.maxWidth * hotcss.dpr;
+    }
+
+    if (!innerWidth) { return false; }
+
+    document.documentElement.style.fontSize = `${innerWidth*20/320   }px`;
+
+    hotcss.callback && hotcss.callback();
+  };
+
+  hotcss.mresize();
+  // 直接调用一次
+
+  window.addEventListener('resize', () => {
+		clearTimeout( hotcss.tid );
+		hotcss.tid = setTimeout( hotcss.mresize , 33 );
+	}, false);
+  // 绑定resize的时候调用
+
+  window.addEventListener('load', hotcss.mresize, false);
+  // 防止不明原因的bug。load之后再调用一次。
+
+
+  setTimeout(() => {
+		hotcss.mresize(); 
+		//防止某些机型怪异现象，异步再调用一次
+	}, 333);
+
+  window.hotcss = hotcss;
+  // 命名空间暴露给你，控制权交给你，想怎么调怎么调。
+}( window , document ));

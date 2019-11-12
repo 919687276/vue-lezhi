@@ -3,7 +3,8 @@ import PromiseState from './PromiseState';
 
 
 const API = axios.create({
-  baseURL: 'http://www.noc.com',
+  // baseURL: 'http://www.noc.com',
+  baseURL: 'http://www.caibo919687276.cn',
   timeout: 15 * 60 * 1000,
   // headers: {
   //   'Content-Type': 'application/json',
@@ -52,9 +53,11 @@ export default {
             store.d = d || {};
             store.o = true;
             store.m = '服务调用成功';
-            reject(store);
+            resolve(store);
+            this.$emit(`ajax:${store.u}`, store);
           })
           .catch((d) => {
+            console.log('catch');
             store.f = new Date();
             store.o = false;
             store.m = '服务调用异常';
@@ -64,6 +67,7 @@ export default {
               type: 'error',
             });
             reject(store);
+            this.$emit(`ajax:${store.u}`, store);
           });
       });
     },
