@@ -35,6 +35,8 @@ export default {
     { src: '~plugins/axios.js', ssr: true },
     { src: '~plugins/ElementUi.js', ssr: true },
     { src: '~plugins/Post', ssr: true },
+    { src: '~plugins/ImgInputer.js', ssr: true },
+    // { src: '~plugins/validate.js', ssr: true },
     // '~plugins/Post',
   ],
   /*

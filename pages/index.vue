@@ -8,7 +8,7 @@
       Main
     </el-main>
     <el-footer>
-      <Upload></Upload>
+      Footer
     </el-footer>
   </el-container>
 </template>
@@ -16,12 +16,10 @@
 <script>
 import axios from 'axios';
 import Header from '~/components/Header.vue';
-import Upload from '~/components/Upload.vue';
 
 export default {
   components: {
     Header,
-    Upload,
   },
   data() {
     return {
@@ -56,11 +54,11 @@ export default {
         });
     },
     test() {
-      this.mypost(this.rs, '/index.php/Admin/Test/index', {
-        index: '111122223333',
-        test: '1234',
-      }).then(() => {
-        alert('ok');
+      this.mypost(this.rs, '/index.php/Admin/Alisms/identifycode', {
+        phone: '13512265536',
+      }).then((rs) => {
+        // alert('ok');
+        console.log(rs);
       }).catch((rs) => {
         console.log(rs);
         alert('err');
