@@ -1,14 +1,12 @@
 <template>
   <el-container>
     <el-header>
-      <el-col :span="4"><div class="top-left"></div></el-col>
-      <el-col :span="16"><div class="register">注册</div></el-col>
+      <el-col :span="16" :offset="4"><div class="register">注册</div></el-col>
       <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/">返回首页</el-link></div></el-col>
     </el-header>
     <el-main>
       <el-row>
-        <el-col :span="6"><div class="grid-content"></div></el-col>
-        <el-col :span="12">
+        <el-col :span="12" :offset="6">
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
             class="demo-ruleForm">
             <el-form-item label="昵称" prop="nickname">
@@ -59,7 +57,6 @@
             </el-form-item>
           </el-form>
         </el-col>
-        <el-col :span="6"><div class="grid-content"></div></el-col>
       </el-row>
     </el-main>
   </el-container>
@@ -70,6 +67,11 @@ import moment from 'moment';
 import { isvalidPhone } from '~/plugins/validate.js';
 
 export default {
+  // created() {
+  //   // eslint-disable-next-line no-undef
+  //   console.log($nuxt.$route.name);
+  // },
+  name: 'register',
   data() {
     const validateNickname = (rule, value, callback) => {
       if (!value) {
@@ -137,7 +139,7 @@ export default {
         ],
         date1: [
           {
-            type: 'date', required: true, message: '请选择日期', trigger: 'change',
+            type: 'date', required: true, message: '请选择日期', trigger: 'blur',
           },
         ],
         desc: [
@@ -199,7 +201,11 @@ export default {
             this.timer = null;
           }
         }, 1000);
-        this.mypost(this.cd, '/index.php/Admin/Alisms/identifycode', {
+        this.mypost(this.cd, '/index.php/Admin/Alisms/code', {
+          accessKeyId: 'LTAI4FmVqXcTMohVHcH67xVY',
+          accessKeySecret: 'DDVjfAidj3W1A6nlFA1kfYIjAZphLM',
+          SignName: 'Noc',
+          TemplateCode: 'SMS_177243468',
           phone: this.ruleForm.phone,
         }).then(() => {
           this.code = this.cd.d.code;
@@ -262,10 +268,6 @@ export default {
 </script>
 
 <style>
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
 .top-left{
   padding-top: 10px;
   min-height: 36px;

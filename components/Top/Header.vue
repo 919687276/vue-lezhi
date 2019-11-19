@@ -51,7 +51,7 @@
             <el-input placeholder="请输入密码" v-model="form.password" show-password></el-input>
           </el-col>
           <el-col :span="6">
-            <el-link type="primary" @click="toRegister" class="forgetpwd">忘记密码？</el-link>
+            <el-link type="primary" @click="RetrievePwd" class="forgetpwd">忘记密码？</el-link>
           </el-col>
         </el-form-item>
       </el-form>
@@ -85,7 +85,10 @@ export default {
   },
   methods: {
     toRegister() {
-      this.$router.push({ path: './Register' });
+      this.$router.push({ path: '/Register' });
+    },
+    RetrievePwd() {
+      this.$router.push({ path: '/RetrievePwd' });
     },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
