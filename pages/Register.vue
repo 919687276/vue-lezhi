@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <el-col :span="16" :offset="4"><div class="register">注册</div></el-col>
-      <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/">返回首页</el-link></div></el-col>
+      <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/lz/">返回首页</el-link></div></el-col>
     </el-header>
     <el-main>
       <el-row>
@@ -97,7 +97,7 @@ export default {
         callback(new Error('请输入正确的11位手机号码'));
         this.iscansend = false;
       } else {
-        this.mypost(this.ru, '/index.php/Admin/Register/isExistUser', {
+        this.spost(this.ru, '/index.php/Admin/Register/isExistUser', {
           phone: value,
         }).then((rs) => {
           if (rs.d.isExist) {
@@ -201,7 +201,7 @@ export default {
             this.timer = null;
           }
         }, 1000);
-        this.mypost(this.cd, '/index.php/Admin/Alisms/code', {
+        this.spost(this.cd, '/index.php/Admin/Alisms/code', {
           accessKeyId: 'LTAI4FmVqXcTMohVHcH67xVY',
           accessKeySecret: 'DDVjfAidj3W1A6nlFA1kfYIjAZphLM',
           SignName: 'Noc',
@@ -224,7 +224,7 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             if (this.code === parseInt(this.ruleForm.verificationCode, 10)) {
-              this.mypost(this.sm, '/index.php/Admin/Register/saveUserInfo', {
+              this.spost(this.sm, '/index.php/Admin/Register/saveUserInfo', {
                 imgname: moment().format('YYYYMMDDHHmmss'),
                 base64img: this.base64img,
                 nickname: this.ruleForm.nickname,
@@ -267,7 +267,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .top-left{
   padding-top: 10px;
   min-height: 36px;

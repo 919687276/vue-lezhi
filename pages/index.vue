@@ -3,23 +3,32 @@
     <el-header>
       <Header></Header>
     </el-header>
-    <el-main>
-      <el-button @click="test()">测试</el-button>
-      Main
+    <el-main style="padding:0px;">
+      <Swiper></Swiper>
+      <CourseIntroduction></CourseIntroduction>
+      <SpecialTopic></SpecialTopic>
     </el-main>
     <el-footer>
       Footer
     </el-footer>
+    <vueToTop color="#2097F3" :top="200" :type="3" :size="35"></vueToTop>
   </el-container>
 </template>
 
 <script>
 import axios from 'axios';
-import Header from '~/components/Top/Header.vue';
+import Header from '~/components/Index/Top/Header.vue';
+import Swiper from '~/components/Index/Main/Swiper.vue';
+import CourseIntroduction from '~/components/Index/Main/CourseIntroduction.vue';
+import SpecialTopic from '~/components/Index/Main/SpecialTopic.vue';
+
 
 export default {
   components: {
     Header,
+    Swiper,
+    CourseIntroduction,
+    SpecialTopic,
   },
   data() {
     return {
@@ -53,23 +62,11 @@ export default {
           alert(error);
         });
     },
-    test() {
-      this.mypost(this.rs, '/index.php/Admin/Alisms/identifycode', {
-        phone: '13512265536',
-      }).then((rs) => {
-        // alert('ok');
-        console.log(rs);
-      }).catch((rs) => {
-        console.log(rs);
-        alert('err');
-        // console.log(this.rs);
-      });
-    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;

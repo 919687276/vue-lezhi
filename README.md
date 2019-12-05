@@ -1,4 +1,4 @@
-# noc
+# lz
 
 > My peachy Nuxt.js project
 

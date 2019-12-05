@@ -1,12 +1,14 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="2" class="logo_col"><img src="~assets/images/Logo.jpg" class="logo_col"></el-col>
+      <el-col :span="2" class="logo_col"><img src="~assets/images/LogoOne.png" class="logo_col"></el-col>
       <el-col :span="17">
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-          <el-menu-item index="1">处理中心</el-menu-item>
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
+          text-color="#6ad5ef" active-text-color="#7b93da" :router="true">
+          <!-- background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"> -->
+          <el-menu-item index="/">首页</el-menu-item>
           <el-submenu index="2">
-            <template slot="title">我的工作台</template>
+            <template slot="title">我的工作台1</template>
             <el-menu-item index="2-1">选项1</el-menu-item>
             <el-menu-item index="2-2">选项2</el-menu-item>
             <el-menu-item index="2-3">选项3</el-menu-item>
@@ -17,19 +19,33 @@
               <el-menu-item index="2-4-3">选项3</el-menu-item>
             </el-submenu>
           </el-submenu>
-          <el-menu-item index="3" disabled>消息中心</el-menu-item>
-          <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+          <el-submenu index="3">
+            <template slot="title">我的工作台2</template>
+            <el-menu-item index="3-1">选项1</el-menu-item>
+            <el-menu-item index="3-2">选项2</el-menu-item>
+            <el-menu-item index="3-3">选项3</el-menu-item>
+          </el-submenu>
+          <el-submenu index="4">
+            <template slot="title">我的工作台3</template>
+            <el-menu-item index="4-1">选项1</el-menu-item>
+            <el-menu-item index="4-2">选项2</el-menu-item>
+            <el-menu-item index="4-3">选项3</el-menu-item>
+          </el-submenu>
+          <!-- <el-menu-item index="3" disabled>消息中心</el-menu-item>
+          <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item> -->
         </el-menu>
       </el-col>
-      <el-col :span="5">
-        <div v-if="filters.loggedIn">
+      <el-col :span="5" v-if="filters.loggedIn">
+        <div>
           <div class="head_portrait"><img class="portrait_img" :src="userImg"></div>
           <div class="login_or_regist">
-            <el-link type="primary">欢迎您，{{filters.user}}</el-link>
+            <el-link type="primary">{{filters.user}}</el-link>
             <el-link type="danger" @click="logout">退出</el-link>
           </div>
         </div>
-        <div v-else>
+      </el-col>
+      <el-col :span="4" :offset="1" v-else>
+        <div>
           <div class="head_portrait"><img class="portrait_img" src="~/assets/userPortrait/user_logo.png"></div>
           <div class="login_or_regist">
             <el-link type="primary" class="login" @click="dialogFormVisible = true">登录</el-link>
@@ -72,8 +88,7 @@ export default {
   inject: ['filters'],
   data() {
     return {
-      activeIndex: '1',
-      activeIndex2: '1',
+      activeIndex: '/',
       dialogFormVisible: false,
       form: {
         phone: '',
@@ -84,6 +99,9 @@ export default {
     };
   },
   methods: {
+    test() {
+      console.log('1');
+    },
     toRegister() {
       this.$router.push({ path: '/Register' });
     },
@@ -91,10 +109,13 @@ export default {
       this.$router.push({ path: '/RetrievePwd' });
     },
     handleSelect(key, keyPath) {
+      if (key === '2-1') {
+        this.$router.push({ path: '/' });
+      }
       console.log(key, keyPath);
     },
     login() {
-      this.mypost(this.lg, '/index.php/Admin/Login/login', {
+      this.spost(this.lg, '/index.php/Admin/Login/login', {
         phone: this.form.phone,
         password: this.form.password,
       }).then(() => {
@@ -128,15 +149,18 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .logo_col{
   height: 58.8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .head_portrait{
   display:table-cell;
   vertical-align:middle;
   height: 60.99px;
-  padding: 0px 20px;
+  padding: 0px 10px;
 }
 .portrait{
   vertical-align: bottom;

@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <el-col :span="16" :offset="4"><div class="retrieve">找回密码</div></el-col>
-      <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/">返回首页</el-link></div></el-col>
+      <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/lz/">返回首页</el-link></div></el-col>
     </el-header>
     <el-main>
       <el-row>
@@ -83,7 +83,7 @@ export default {
       } else if (!isvalidPhone(value)) {
         callback(new Error('请输入正确的11位手机号码'));
       } else {
-        this.mypost(this.ru, '/index.php/Admin/Register/isExistUser', {
+        this.spost(this.ru, '/index.php/Admin/Register/isExistUser', {
           phone: value,
         }).then((rs) => {
           if (!rs.d.isExist) {
@@ -111,7 +111,7 @@ export default {
       if (this.ruleForm.checkPass !== this.ruleForm.pass) {
         callback(new Error('两次输入密码不一致!'));
       } else {
-        this.mypost(this.rpw, '/index.php/Admin/Retrievepwd/checkpwd', {
+        this.spost(this.rpw, '/index.php/Admin/Retrievepwd/checkpwd', {
           phone: this.ruleForm.phone,
           password: this.ruleForm.pass,
         }).then(() => {
@@ -165,7 +165,7 @@ export default {
   methods: {
     next() {
       if (this.step === 1) {
-        this.mypost(this.cd, '/index.php/Admin/Alisms/code', {
+        this.spost(this.cd, '/index.php/Admin/Alisms/code', {
           accessKeyId: 'LTAI4FmVqXcTMohVHcH67xVY',
           accessKeySecret: 'DDVjfAidj3W1A6nlFA1kfYIjAZphLM',
           SignName: 'Noc',
@@ -201,7 +201,7 @@ export default {
           });
         }
       } else if (this.step === 3) {
-        this.mypost(this.cp, '/index.php/Admin/Retrievepwd/updatepwd', {
+        this.spost(this.cp, '/index.php/Admin/Retrievepwd/updatepwd', {
           phone: this.ruleForm.phone,
           password: this.ruleForm.pass,
         }).then(() => {
@@ -235,7 +235,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .top-right{
   padding-top: 10px;
   min-height: 36px;

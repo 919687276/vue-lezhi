@@ -3,7 +3,6 @@ import PromiseState from './PromiseState';
 
 
 const API = axios.create({
-  // baseURL: 'http://www.noc.com',
   baseURL: 'http://www.caibo919687276.cn',
   timeout: 15 * 60 * 1000,
   // headers: {
@@ -22,7 +21,7 @@ export default {
     newStore() {
       return new PromiseState();
     },
-    mypost(store, path, data) {
+    spost(store, path, data) {
       debug('path=%s', path);
       // eslint-disable-next-line no-async-promise-executor
       return new Promise(async (resolve, reject) => {
