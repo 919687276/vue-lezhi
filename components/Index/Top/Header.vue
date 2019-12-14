@@ -84,6 +84,8 @@
 </template>
 
 <script>
+import md5 from 'js-md5';
+
 export default {
   inject: ['filters'],
   data() {
@@ -99,9 +101,6 @@ export default {
     };
   },
   methods: {
-    test() {
-      console.log('1');
-    },
     toRegister() {
       this.$router.push({ path: '/Register' });
     },
@@ -112,18 +111,17 @@ export default {
       if (key === '2-1') {
         this.$router.push({ path: '/' });
       }
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     login() {
-      this.spost(this.lg, '/index.php/Admin/Login/login', {
+      this.spost(this.lg, '/Home/methods/login', {
         phone: this.form.phone,
-        password: this.form.password,
+        password: md5(this.form.password),
       }).then(() => {
-        console.log(this.lg);
         if (this.lg.d.isExist) {
           this.dialogFormVisible = false;
           this.filters.loggedIn = true;
-          this.filters.user = this.lg.d.name;
+          this.filters.user = this.lg.d.nickname;
           this.userImg = this.lg.d.userimg;
           this.$message({
             message: '登录成功',

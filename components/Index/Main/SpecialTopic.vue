@@ -13,7 +13,7 @@
             <div class="rightBox">
               <div class="rightItem" v-for="i in item.data" :key="i.id">
                 <div class="rightImgBox">
-                  <img :src="i.img" class="rightImg" style="width:100%;height:100%;">
+                  <img :src="i.img" class="rightImg">
                 </div>
                 <div class="rightTitle">{{i.title}}</div>
               </div>
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     getClassificationData() {
-      this.spost(this.ts.topic, '/index.php/Admin/SpecialTopic/getClassificationData', {
+      this.spost(this.ts.topic, '/Home/methods/getClassificationData', {
       });
     },
   },

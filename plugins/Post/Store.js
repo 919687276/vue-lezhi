@@ -3,7 +3,8 @@ import PromiseState from './PromiseState';
 
 
 const API = axios.create({
-  baseURL: 'http://www.caibo919687276.cn',
+  // baseURL: 'http://www.caibo919687276.cn',
+  baseURL: 'http://123.206.89.141:3000',
   timeout: 15 * 60 * 1000,
   // headers: {
   //   'Content-Type': 'application/json',
@@ -38,9 +39,10 @@ export default {
         let post;
         switch (Config.APIFormat) {
           case 'h5proxy':
-            data.__action = path;
+            // data.__action = path;
             // post = API.post(path, JSON.stringify(data));
-            post = API.post(path, encodeURIComponent(JSON.stringify(data)));
+            // post = API.post(path, encodeURIComponent(JSON.stringify(data)));
+            post = API.post(path, data);
             break;
           default:
             return;

@@ -14,23 +14,25 @@ export default {
         bannerHeight: undefined,
         screenWidth: undefined,
         wrapperSrc: [
-          'http://www.caibo919687276.cn/Upload/20191112/wrapperOne.jpg',
-          'http://www.caibo919687276.cn/Upload/20191112/wrapperTwo.jpg',
-          'http://www.caibo919687276.cn/Upload/20191112/wrapperThree.jpg',
-          'http://www.caibo919687276.cn/Upload/20191112/wrapperFour.jpg',
-          'http://www.caibo919687276.cn/Upload/20191112/wrapperFive.jpg',
+          'http://www.caibo919687276.cn/images/swiper/wrapperOne.jpg',
+          'http://www.caibo919687276.cn/images/swiper/wrapperTwo.jpg',
+          'http://www.caibo919687276.cn/images/swiper/wrapperThree.jpg',
+          'http://www.caibo919687276.cn/images/swiper/wrapperFour.jpg',
+          'http://www.caibo919687276.cn/images/swiper/wrapperFive.jpg',
         ],
       },
     };
   },
   mounted() {
-    this.setSize();
-    this.ctl.screenWidth = document.body.clientWidth;
-    window.addEventListener('resize', () => {
-      // eslint-disable-next-line no-undef
-      this.ctl.screenWidth = document.body.clientWidth;
+    if (process.browser) {
       this.setSize();
-    }, false);
+      this.ctl.screenWidth = document.body.clientWidth;
+      window.addEventListener('resize', () => {
+      // eslint-disable-next-line no-undef
+        this.ctl.screenWidth = document.body.clientWidth;
+        this.setSize();
+      }, false);
+    }
   },
   methods: {
     setSize() {

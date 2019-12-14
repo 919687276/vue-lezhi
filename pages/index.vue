@@ -7,9 +7,10 @@
       <Swiper></Swiper>
       <CourseIntroduction></CourseIntroduction>
       <SpecialTopic></SpecialTopic>
+      <HotResources></HotResources>
     </el-main>
-    <el-footer>
-      Footer
+    <el-footer style="padding:0px;height:auto;background-color: #F5F5F5;">
+      <Footer></Footer>
     </el-footer>
     <vueToTop color="#2097F3" :top="200" :type="3" :size="35"></vueToTop>
   </el-container>
@@ -21,7 +22,8 @@ import Header from '~/components/Index/Top/Header.vue';
 import Swiper from '~/components/Index/Main/Swiper.vue';
 import CourseIntroduction from '~/components/Index/Main/CourseIntroduction.vue';
 import SpecialTopic from '~/components/Index/Main/SpecialTopic.vue';
-
+import HotResources from '~/components/Index/Main/HotResources.vue';
+import Footer from '~/components/Index/Footer/Footer.vue';
 
 export default {
   components: {
@@ -29,7 +31,12 @@ export default {
     Swiper,
     CourseIntroduction,
     SpecialTopic,
+    HotResources,
+    Footer,
   },
+  // created() {
+  //   console.log(this.env);
+  // },
   data() {
     return {
       filters: {

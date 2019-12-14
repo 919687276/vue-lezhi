@@ -115,7 +115,7 @@ export default {
           phone: this.ruleForm.phone,
           password: this.ruleForm.pass,
         }).then(() => {
-          console.log(this.rpw);
+          // console.log(this.rpw);
           if (!this.rpw.d.status) {
             callback(new Error('新密码不能与原密码相同'));
           } else {

@@ -29,18 +29,19 @@ export default {
     'element-ui/lib/theme-chalk/index.css',
   ],
   router: {
-    base: '/lz/',
-    mode: 'hash',
+    // base: '/lz/',
+    mode: 'history',
   },
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~plugins/Totop.js', ssr: true },
-    { src: '~plugins/axios.js', ssr: true },
-    { src: '~plugins/ElementUi.js', ssr: true },
+    // { src: '~plugins/env.js', ssr: true }, // env全局变量
+    { src: '~plugins/Totop.js', ssr: true }, // 返回顶部插件
+    { src: '~plugins/axios.js', ssr: true }, // 原生axios方法
+    { src: '~plugins/ElementUi.js', ssr: true }, // Element UI
     { src: '~plugins/Post', ssr: true },
-    { src: '~plugins/ImgInputer.js', ssr: true },
+    { src: '~plugins/ImgInputer.js', ssr: true }, // 图片上传组件
   ],
   /*
   ** Nuxt.js dev-modules
@@ -75,11 +76,16 @@ export default {
     // eslint-disable-next-line no-unused-vars
     extend(config, ctx) {
     },
-    postcss: [
-      // eslint-disable-next-line global-require
-      // require('postcss-px2rem')({
-      //   remUnit: 35,
-      // }),
-    ],
+    // postcss: [
+    //   // eslint-disable-next-line global-require
+    //   require('postcss-px2rem')({
+    //     remUnit: 35,
+    //   }),
+    // ],
+    // postcss: {
+    //   'postcss-px2rem': {
+    //     remUnit: 100,
+    //   },
+    // },
   },
 };
