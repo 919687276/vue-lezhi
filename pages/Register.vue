@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <el-col :span="16" :offset="4"><div class="register">注册</div></el-col>
-      <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/lz/">返回首页</el-link></div></el-col>
+      <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/">返回首页</el-link></div></el-col>
     </el-header>
     <el-main>
       <el-row>
@@ -64,6 +64,7 @@
 
 <script>
 import moment from 'moment';
+import md5 from 'js-md5';
 import { isvalidPhone } from '~/plugins/validate.js';
 
 export default {
@@ -97,7 +98,7 @@ export default {
         callback(new Error('请输入正确的11位手机号码'));
         this.iscansend = false;
       } else {
-        this.spost(this.ru, '/index.php/Admin/Register/isExistUser', {
+        this.spost(this.ru, '/Register/methods/isExistUser', {
           phone: value,
         }).then((rs) => {
           if (rs.d.isExist) {
@@ -159,16 +160,6 @@ export default {
     };
   },
   methods: {
-    // changeUserName() {
-    //   this.$nextTick(() => {
-    //     if (this.ruleForm.username !== null) {
-    //       // eslint-disable-next-line no-useless-escape
-    //       this.ruleForm.username = this.ruleForm.username.replace(/[\u4e00-\u9fa5]/g, '');
-    //       // eslint-disable-next-line no-useless-escape
-    //       this.ruleForm.username = this.ruleForm.username.replace(/[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘’，。、]/im, '');
-    //     }
-    //   });
-    // },
     resetForm(formName) {
       this.timershow = true;
       this.ruleForm.userimg = undefined;
@@ -182,9 +173,17 @@ export default {
       reader.readAsDataURL(file);
       // 读取完毕后的操作
       reader.onloadend = (e) => {
-        img.src = e.target.result;
-        // reader.result就是图片的base64字符串
-        this.base64img = reader.result;
+        if (e.loaded / (1024 * 1024) > 5) {
+          this.ruleForm.userimg = undefined;
+          this.$message({
+            message: '请上传小于5M的图片',
+            type: 'warning',
+          });
+        } else {
+          img.src = e.target.result;
+          // reader.result就是图片的base64字符串
+          this.base64img = reader.result;
+        }
       };
     },
     sendCode() {
@@ -194,23 +193,34 @@ export default {
         this.count = TIME_COUNT;
         this.timer = setInterval(() => {
           if (this.count > 0 && this.count <= TIME_COUNT) {
-            this.count = this.count - 1;
+            this.count -= 1;
           } else {
             this.timershow = true;
             clearInterval(this.timer); // 清除定时器
             this.timer = null;
           }
         }, 1000);
-        this.spost(this.cd, '/index.php/Admin/Alisms/code', {
+        this.spost(this.cd, '/Common/methods/sendCode', {
           accessKeyId: 'LTAI4FmVqXcTMohVHcH67xVY',
           accessKeySecret: 'DDVjfAidj3W1A6nlFA1kfYIjAZphLM',
           SignName: 'Noc',
           TemplateCode: 'SMS_177243468',
           phone: this.ruleForm.phone,
-        }).then(() => {
-          this.code = this.cd.d.code;
-        }).catch((err) => {
-          console.log(err);
+        }).then((rs) => {
+          if (rs.d.status !== 1) {
+            this.$message({
+              message: `${rs.d.message},请联系管理员`,
+              type: 'warning',
+            });
+            this.isnext = true;
+          } else {
+            this.code = this.cd.d.code;
+          }
+        }).catch(() => {
+          this.$message({
+            message: '验证码发送失败，请稍后再试',
+            type: 'warning',
+          });
         });
       } else if (!this.ruleForm.phone) {
         this.$message({
@@ -223,12 +233,12 @@ export default {
       if (this.ruleForm.userimg) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if (this.code === parseInt(this.ruleForm.verificationCode, 10)) {
-              this.spost(this.sm, '/index.php/Admin/Register/saveUserInfo', {
+            if (parseInt(this.code, 10) === parseInt(this.ruleForm.verificationCode, 10)) {
+              this.spost(this.sm, '/Register/methods/saveUserInfo', {
                 imgname: moment().format('YYYYMMDDHHmmss'),
                 base64img: this.base64img,
                 nickname: this.ruleForm.nickname,
-                password: this.ruleForm.pass,
+                password: md5(this.ruleForm.pass),
                 phone: this.ruleForm.phone,
                 date: moment(this.ruleForm.date1).format('YYYY-MM-DD'),
                 desc: this.ruleForm.desc,

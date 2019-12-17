@@ -37,7 +37,7 @@
       </el-col>
       <el-col :span="5" v-if="filters.loggedIn">
         <div>
-          <div class="head_portrait"><img class="portrait_img" :src="userImg"></div>
+          <div class="head_portrait"><img class="portrait_img" v-loading="!userImg" :src="userImg"></div>
           <div class="login_or_regist">
             <el-link type="primary">{{filters.user}}</el-link>
             <el-link type="danger" @click="logout">退出</el-link>
@@ -111,7 +111,7 @@ export default {
       if (key === '2-1') {
         this.$router.push({ path: '/' });
       }
-      // console.log(key, keyPath);
+      console.log(key, keyPath);
     },
     login() {
       this.spost(this.lg, '/Home/methods/login', {

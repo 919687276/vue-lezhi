@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <el-col :span="16" :offset="4"><div class="retrieve">找回密码</div></el-col>
-      <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/lz/">返回首页</el-link></div></el-col>
+      <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/">返回首页</el-link></div></el-col>
     </el-header>
     <el-main>
       <el-row>
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import md5 from 'js-md5';
 import { isvalidPhone } from '~/plugins/validate.js';
 
 export default {
@@ -83,7 +84,7 @@ export default {
       } else if (!isvalidPhone(value)) {
         callback(new Error('请输入正确的11位手机号码'));
       } else {
-        this.spost(this.ru, '/index.php/Admin/Register/isExistUser', {
+        this.spost(this.ru, '/Register/methods/isExistUser', {
           phone: value,
         }).then((rs) => {
           if (!rs.d.isExist) {
@@ -111,13 +112,13 @@ export default {
       if (this.ruleForm.checkPass !== this.ruleForm.pass) {
         callback(new Error('两次输入密码不一致!'));
       } else {
-        this.spost(this.rpw, '/index.php/Admin/Retrievepwd/checkpwd', {
+        this.spost(this.rpw, '/Register/methods/checkUserPwd', {
           phone: this.ruleForm.phone,
-          password: this.ruleForm.pass,
+          password: md5(this.ruleForm.pass),
         }).then(() => {
           // console.log(this.rpw);
           if (!this.rpw.d.status) {
-            callback(new Error('新密码不能与原密码相同'));
+            callback(new Error('新密码不能与近期密码相同'));
           } else {
             this.isnext = false;
           }
@@ -164,33 +165,44 @@ export default {
   },
   methods: {
     next() {
+      console.log(this.step);
       if (this.step === 1) {
-        this.spost(this.cd, '/index.php/Admin/Alisms/code', {
+        this.spost(this.cd, '/Common/methods/sendCode', {
           accessKeyId: 'LTAI4FmVqXcTMohVHcH67xVY',
           accessKeySecret: 'DDVjfAidj3W1A6nlFA1kfYIjAZphLM',
           SignName: 'Noc',
           TemplateCode: 'SMS_177547161',
           phone: this.ruleForm.phone,
-        }).then(() => {
-          this.active = 1;
-          this.step = 2;
-          this.isnext = true;
-          this.code = this.cd.d.code;
-          // 计时器
-          const TIME_COUNT = 60; // 倒计时时间
-          this.count = TIME_COUNT;
-          this.timer = setInterval(() => {
-            if (this.count > 0 && this.count <= TIME_COUNT) {
-              this.count = this.count - 1;
-            } else {
-              this.timershow = false;
-              clearInterval(this.timer); // 清除定时器
-              this.timer = null;
-            }
-          }, 1000);
+        }).then((rs) => {
+          if (rs.d.status !== 1) {
+            this.$message({
+              message: `${rs.d.message},请联系管理员`,
+              type: 'warning',
+            });
+            this.isnext = true;
+          } else {
+            this.active = 1;
+            this.step = 2;
+            this.isnext = true;
+            this.code = this.cd.d.code;
+            // 计时器
+            const TIME_COUNT = 60; // 倒计时时间
+            this.count = TIME_COUNT;
+            this.timer = setInterval(() => {
+              if (this.count > 0 && this.count <= TIME_COUNT) {
+                this.count -= 1;
+              } else {
+                this.timershow = false;
+                clearInterval(this.timer); // 清除定时器
+                this.timer = null;
+              }
+            }, 1000);
+          }
+        }).catch((err) => {
+          console.log(err);
         });
       } else if (this.step === 2) {
-        if (this.code === parseInt(this.ruleForm.verificationCode, 10)) {
+        if (parseInt(this.code, 10) === parseInt(this.ruleForm.verificationCode, 10)) {
           this.active = 2;
           this.step = 3;
           this.isnext = true;
@@ -201,9 +213,9 @@ export default {
           });
         }
       } else if (this.step === 3) {
-        this.spost(this.cp, '/index.php/Admin/Retrievepwd/updatepwd', {
+        this.spost(this.cp, '/Register/methods/updateUserPwd', {
           phone: this.ruleForm.phone,
-          password: this.ruleForm.pass,
+          password: md5(this.ruleForm.pass),
         }).then(() => {
           if (this.cp.d.status) {
             this.active = 4;
@@ -212,7 +224,7 @@ export default {
             this.succcount = TIME_COUNT;
             this.succtimer = setInterval(() => {
               if (this.succcount > 0 && this.succcount <= TIME_COUNT) {
-                this.succcount = this.succcount - 1;
+                this.succcount -= 1;
               } else {
                 clearInterval(this.succtimer); // 清除定时器
                 this.succtimer = null;
