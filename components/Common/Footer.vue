@@ -4,9 +4,9 @@
       <div class="cloud-bubble-one"></div>
       <div class="cloud-bubble-two"></div>
       <div class="cloud-bubble-three"></div>
-      <div class="cloud-bubble-text">获得最新考试信息学习资料和技巧</div>
+      <div class="cloud-bubble-text">获得最新的学习资料和考试资源</div>
       <div class="cloud-bubble-link">
-        <a href="#">了解详情</a>
+        <a href="">了解详情</a>
       </div>
     </div>
     <div class="cloud-footer">
@@ -20,17 +20,17 @@
             </li>
             <li class="feature-item002">
               <a href="#">
-                <span>0元快速备案</span>
+                <span>快速备考</span>
               </a>
             </li>
             <li class="feature-item003">
               <a href="#">
-                <span>100倍故障赔偿</span>
+                <span>名师辅导</span>
               </a>
             </li>
             <li class="feature-item004">
               <a href="#">
-                <span>5天无理由退款</span>
+                <span>7天无理由退款</span>
               </a>
             </li>
           </ul>
@@ -42,8 +42,8 @@
                 <span></span>
               </div>
               <div class="cloud-info">
-                <p>北京****网络科技有限公司</p>
-                <p>TEl:010-888-4000 (7x24h)</p>
+                <p>乐智教育</p>
+                <p>TEl:&nbsp;010-888-4000 (7x24h)</p>
               </div>
             </div>
             <div class="cloud-share">
@@ -79,57 +79,42 @@
           </div>
           <div class="cloud-footer-nav-list clearfix">
             <ul>
-              <li class="list-title">产品与服务
+              <li class="list-title">新手帮助
               </li>
               <li>
-                <a href="#">弹性云服务器</a>
+                <a href="#">在线咨询</a>
               </li>
               <li>
-                <a href="#">服务器托管</a>
+                <a href="#">注册登录</a>
               </li>
               <li>
-                <a href="#">云虚拟主机</a>
+                <a href="#">找回密码</a>
               </li>
               <li>
-                <a href="#">SSL证书</a>
+                <a href="#">资源下载</a>
               </li>
               <li>
-                <a href="#">域名注册</a>
-              </li>
-              <li>
-                <a href="#">云监控</a>
-              </li>
-              <li>
-                <a href="#">云帮手</a>
+                <a href="#">帮助中心</a>
               </li>
             </ul>
             <ul>
-              <li class="list-title">帮助与支持
+              <li class="list-title">会员须知
               </li>
               <li>
-                <a href="#">管理控制台</a>
+                <a href="#">学币规则</a>
               </li>
               <li>
-                <a href="#">域名信息查询</a>
+                <a href="#">会员权限</a>
               </li>
               <li>
-                <a href="#">合同申请</a>
+                <a href="#">会员积分</a>
               </li>
               <li>
-                <a href="#">域名控制台</a>
-              </li>
-              <li>
-                <a href="#">优化与提升</a>
-              </li>
-              <li>
-                <a href="#">实施与搭建</a>
-              </li>
-              <li>
-                <a href="#">支持计划</a>
+                <a href="#">免责声明</a>
               </li>
             </ul>
             <ul>
-              <li class="list-title">关于****
+              <li class="list-title">关于我们
               </li>
               <li>
                 <a href="#">公司简介</a>
@@ -147,45 +132,38 @@
                 <a href="#">新闻动态</a>
               </li>
               <li>
-                <a href="#">校园招聘</a>
-              </li>
-              <li>
                 <a href="#">友情链接</a>
               </li>
             </ul>
             <ul>
-              <li class="list-title">其他
+              <li class="list-title">资源上传
               </li>
               <li>
-                <a href="#">开发者中心</a>
+                <a href="#">上传投稿</a>
               </li>
               <li>
-                <a href="#">开发者课堂</a>
+                <a href="#">普通资料</a>
               </li>
               <li>
-                <a href="#">考试认证</a>
+                <a href="#">精品资料</a>
               </li>
               <li>
-                <a href="#">开放实验室</a>
+                <a href="#">上传工具</a>
               </li>
               <li>
-                <a href="#">举报中心</a>
+                <a href="#">精品模板</a>
               </li>
               <li>
-                <a href="#">定价</a>
-              </li>
-              <li>
-                <a href="#">意见反馈</a>
+                <a href="#">上传常见问题</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div class="cloud-copyright cloud-copyright-about">
-        <p>Copyright © 2001-2018 *****.com. All Rights Reserved. ***** 版权所有</p>
-        <p>
-          《中华人民共和国增值电信业务经营许可证》京ICP备xxxxx号-3 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#">********号-3</a>
-          地址：北京市海淀区西三环北路8882号大厦
+        <p>Copyright © 2018-2020 www.caibo919687276.com. All Rights Reserved. 乐智教育版权所有</p>
+        <p class="beian">
+          <img src="~assets/images/footer/beiantubiao.png" style="float:left;"/>津公网安备  &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001173">12010302001173号</a>
 
         </p>
       </div>
@@ -637,6 +615,11 @@ a:hover {
 
 .cloud-copyright p a:hover {
     text-decoration: underline;
+}
+.beian{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>

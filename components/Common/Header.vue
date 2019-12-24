@@ -4,9 +4,9 @@
       <el-col :span="2" class="logo_col"><img src="~assets/images/LogoOne.png" class="logo_col"></el-col>
       <el-col :span="17">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
-          text-color="#6ad5ef" active-text-color="#7b93da" :router="true">
+          active-text-color="#2097F3" :router="false">
           <!-- background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"> -->
-          <el-menu-item index="/">首页</el-menu-item>
+          <el-menu-item index="1">首页</el-menu-item>
           <el-submenu index="2">
             <template slot="title">我的工作台1</template>
             <el-menu-item index="2-1">选项1</el-menu-item>
@@ -35,17 +35,17 @@
           <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item> -->
         </el-menu>
       </el-col>
-      <el-col :span="5" v-if="filters.loggedIn">
-        <div>
+      <el-col :span="5" v-if="filters.loggedIn" class="top_style">
+        <div class="login_grid">
           <div class="head_portrait"><img class="portrait_img" v-loading="!userImg" :src="userImg"></div>
           <div class="login_or_regist">
             <el-link type="primary">{{filters.user}}</el-link>
-            <el-link type="danger" @click="logout">退出</el-link>
+            <el-link type="danger" class="logout_style" @click="logout">退出</el-link>
           </div>
         </div>
       </el-col>
-      <el-col :span="4" :offset="1" v-else>
-        <div>
+      <el-col :span="4" :offset="1" class="top_style" v-else>
+        <div class="login_grid">
           <div class="head_portrait"><img class="portrait_img" src="~/assets/userPortrait/user_logo.png"></div>
           <div class="login_or_regist">
             <el-link type="primary" class="login" @click="dialogFormVisible = true">登录</el-link>
@@ -66,7 +66,7 @@
           <el-col :span="16">
             <el-input placeholder="请输入密码" v-model="form.password" show-password></el-input>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" style="min-width: 70px;">
             <el-link type="primary" @click="RetrievePwd" class="forgetpwd">忘记密码？</el-link>
           </el-col>
         </el-form-item>
@@ -87,7 +87,7 @@
 import md5 from 'js-md5';
 
 export default {
-  inject: ['filters'],
+  inject: ['session', 'filters'],
   data() {
     return {
       activeIndex: '/',
@@ -107,11 +107,12 @@ export default {
     RetrievePwd() {
       this.$router.push({ path: '/RetrievePwd' });
     },
-    handleSelect(key, keyPath) {
-      if (key === '2-1') {
-        this.$router.push({ path: '/' });
-      }
-      console.log(key, keyPath);
+    handleSelect(key) {
+      this.filters.showPage = key;
+      // if (key === '2-1') {
+      //   this.$router.push({ path: '/' });
+      // }
+      console.log(key);
     },
     login() {
       this.spost(this.lg, '/Home/methods/login', {
@@ -148,6 +149,7 @@ export default {
 </script>
 
 <style scoped>
+
 .logo_col{
   height: 58.8px;
   display: flex;
@@ -155,10 +157,9 @@ export default {
   align-items: center;
 }
 .head_portrait{
-  display:table-cell;
-  vertical-align:middle;
-  height: 60.99px;
-  padding: 0px 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 .portrait{
   vertical-align: bottom;
@@ -171,10 +172,19 @@ export default {
   border-radius: 50%;
   overflow: hidden;
 }
+.top_style{
+  display:flex;
+  height:58.8px;
+}
+.login_grid{
+  display:grid;
+  grid-template-columns:30% 70%;
+  width: 100%;
+}
 .login_or_regist{
-  display:table-cell;
-  vertical-align:middle;
-  height: 60.99px;
+  display:flex;
+  justify-content:left;
+  align-items:center;
 }
 .login{
   margin-right: 10px;
@@ -184,5 +194,8 @@ export default {
 }
 .goRegist{
   text-align: center;
+}
+.logout_style{
+  margin-left: 5px;
 }
 </style>

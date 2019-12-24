@@ -76,12 +76,12 @@ export default {
     // eslint-disable-next-line no-unused-vars
     extend(config, ctx) {
     },
-    // postcss: [
-    //   // eslint-disable-next-line global-require
-    //   require('postcss-px2rem')({
-    //     remUnit: 35,
-    //   }),
-    // ],
+    postcss: [
+      // eslint-disable-next-line global-require
+      require('postcss-px2rem')({
+        remUnit: 35,
+      }),
+    ],
     // postcss: {
     //   'postcss-px2rem': {
     //     remUnit: 100,

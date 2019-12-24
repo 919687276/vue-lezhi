@@ -170,8 +170,8 @@ export default {
         this.spost(this.cd, '/Common/methods/sendCode', {
           accessKeyId: 'LTAI4FmVqXcTMohVHcH67xVY',
           accessKeySecret: 'DDVjfAidj3W1A6nlFA1kfYIjAZphLM',
-          SignName: 'Noc',
-          TemplateCode: 'SMS_177547161',
+          SignName: '乐智',
+          TemplateCode: 'SMS_180352474',
           phone: this.ruleForm.phone,
         }).then((rs) => {
           if (rs.d.status !== 1) {

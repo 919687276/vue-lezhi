@@ -1,63 +1,62 @@
 <template>
-  <el-container>
+  <el-container style="position:relative;">
+    <Bubbles></Bubbles>
     <el-header>
       <el-col :span="16" :offset="4"><div class="register">注册</div></el-col>
       <el-col :span="4"><div class="top-right"><i class="el-icon-back"></i><el-link type="primary" class="back" :underline="false" href="/">返回首页</el-link></div></el-col>
     </el-header>
     <el-main>
-      <el-row>
-        <el-col :span="12" :offset="6">
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
-            class="demo-ruleForm">
-            <el-form-item label="昵称" prop="nickname">
-              <el-input v-model="ruleForm.nickname" style="ime-mode:disabled;"></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="pass">
-              <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="确认密码" prop="checkPass">
-              <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="头像">
-              <img-inputer v-model="ruleForm.userimg" theme="light" size="small" type="file"
-                accept="image/*" placeholder="请上传您的头像" :on-change="chooseImg" />
-            </el-form-item>
-            <el-form-item label="手机号" prop="phone">
-              <el-input v-model.number="ruleForm.phone" maxlength="11"></el-input>
-            </el-form-item>
-            <el-form-item label="输入验证码" prop="verificationCode">
-              <el-col :span="6">
-                <el-input v-model="ruleForm.verificationCode" maxlength="6" placeholder="请输入验证码"></el-input>
-              </el-col>
-              <el-col :span="1"><div style="height:1px;"></div></el-col>
-              <el-col :span="8">
-                <el-button icon="el-icon-mobile-phone" @click="sendCode" type="primary" v-if="timershow">
-                  <span>获取验证码</span>
-                </el-button>
-                <el-button icon="el-icon-mobile-phone" type="primary"
-                  :disabled="true" v-if="!timershow">
-                  <span class="count">{{count}} s</span>
-                </el-button>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="出生年月" required>
-              <el-col :span="11">
-                <el-form-item prop="date1">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1"
-                    style="width: 100%;"></el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="个人简介" prop="desc">
-              <el-input type="textarea" maxlength="100" show-word-limit v-model="ruleForm.desc"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
-              <el-button @click="resetForm('ruleForm')">重置</el-button>
-            </el-form-item>
-          </el-form>
-        </el-col>
-      </el-row>
+      <el-col :span="12" :offset="6">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
+          class="demo-ruleForm">
+          <el-form-item label="昵称" prop="nickname">
+            <el-input v-model="ruleForm.nickname" style="ime-mode:disabled;"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="pass">
+            <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="checkPass">
+            <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="头像">
+            <img-inputer v-model="ruleForm.userimg" theme="light" size="small" type="file"
+              accept="image/*" placeholder="请上传您的头像" :on-change="chooseImg" />
+          </el-form-item>
+          <el-form-item label="手机号" prop="phone">
+            <el-input v-model.number="ruleForm.phone" maxlength="11"></el-input>
+          </el-form-item>
+          <el-form-item label="输入验证码" prop="verificationCode">
+            <el-col :span="6">
+              <el-input v-model="ruleForm.verificationCode" maxlength="6" placeholder="请输入验证码"></el-input>
+            </el-col>
+            <el-col :span="1"><div style="height:1px;"></div></el-col>
+            <el-col :span="8">
+              <el-button icon="el-icon-mobile-phone" @click="sendCode" type="primary" v-if="timershow">
+                <span>获取验证码</span>
+              </el-button>
+              <el-button icon="el-icon-mobile-phone" type="primary"
+                :disabled="true" v-if="!timershow">
+                <span class="count">{{count}} s</span>
+              </el-button>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="出生年月" required>
+            <el-col :span="11">
+              <el-form-item prop="date1">
+                <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1"
+                  style="width: 100%;"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="个人简介" prop="desc">
+            <el-input type="textarea" maxlength="100" show-word-limit v-model="ruleForm.desc"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
     </el-main>
   </el-container>
 </template>
@@ -66,19 +65,22 @@
 import moment from 'moment';
 import md5 from 'js-md5';
 import { isvalidPhone } from '~/plugins/validate.js';
+import Bubbles from '~/components/Common/Bubbles.vue';
 
 export default {
   // created() {
   //   // eslint-disable-next-line no-undef
   //   console.log($nuxt.$route.name);
   // },
-  name: 'register',
+  components: {
+    Bubbles,
+  },
   data() {
     const validateNickname = (rule, value, callback) => {
       if (!value) {
         callback(new Error('请输入昵称'));
-      } else if (value.length < 6 || value.length > 12) {
-        callback(new Error('长度在 6 到 12 个字符'));
+      } else if (value.length < 3 || value.length > 8) {
+        callback(new Error('长度在 3 到 8 个字符'));
       } else {
         callback();
       }
@@ -203,8 +205,8 @@ export default {
         this.spost(this.cd, '/Common/methods/sendCode', {
           accessKeyId: 'LTAI4FmVqXcTMohVHcH67xVY',
           accessKeySecret: 'DDVjfAidj3W1A6nlFA1kfYIjAZphLM',
-          SignName: 'Noc',
-          TemplateCode: 'SMS_177243468',
+          SignName: '乐智',
+          TemplateCode: 'SMS_180342664',
           phone: this.ruleForm.phone,
         }).then((rs) => {
           if (rs.d.status !== 1) {

@@ -1,13 +1,11 @@
 <template>
-  <el-container>
-    <el-header>
+  <el-container class="minwidth">
+    <el-header height="auto">
       <Header></Header>
     </el-header>
     <el-main style="padding:0px;">
-      <Swiper></Swiper>
-      <CourseIntroduction></CourseIntroduction>
-      <SpecialTopic></SpecialTopic>
-      <HotResources></HotResources>
+      <IndexPage v-if="ctl.filters.showPage==='1'"></IndexPage>
+      <div v-if="ctl.filters.showPage==='2-1'">111222</div>
     </el-main>
     <el-footer style="padding:0px;height:auto;background-color: #F5F5F5;">
       <Footer></Footer>
@@ -18,20 +16,18 @@
 
 <script>
 import axios from 'axios';
-import Header from '~/components/Index/Top/Header.vue';
-import Swiper from '~/components/Index/Main/Swiper.vue';
-import CourseIntroduction from '~/components/Index/Main/CourseIntroduction.vue';
-import SpecialTopic from '~/components/Index/Main/SpecialTopic.vue';
-import HotResources from '~/components/Index/Main/HotResources.vue';
-import Footer from '~/components/Index/Footer/Footer.vue';
+import Header from '~/components/Common/Header.vue';
+import IndexPage from '~/components/Main/IndexPage.vue';
+import Footer from '~/components/Common/Footer.vue';
 
 export default {
   components: {
     Header,
-    Swiper,
-    CourseIntroduction,
-    SpecialTopic,
-    HotResources,
+    IndexPage,
+    // Swiper,
+    // CourseIntroduction,
+    // SpecialTopic,
+    // HotResources,
     Footer,
   },
   // created() {
@@ -39,16 +35,23 @@ export default {
   // },
   data() {
     return {
-      filters: {
-        loggedIn: false,
-        user: undefined,
+      ctl: {
+        session: {
+          login: false,
+        },
+        filters: {
+          loggedIn: false,
+          user: undefined,
+          showPage: '1',
+        },
       },
       rs: this.newStore(),
     };
   },
   provide() {
     return {
-      filters: this.filters,
+      filters: this.ctl.filters,
+      session: this.ctl.session,
     };
   },
   methods: {
@@ -82,7 +85,9 @@ export default {
   align-items: center;
   text-align: center;
 }
-
+.el-header {
+  padding: 0 0px 0 20px;
+}
 .title {
   font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -103,5 +108,11 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+.minwidth{
+  min-width:1000px;
+}
+.headerHeight{
+  height:60px;
 }
 </style>

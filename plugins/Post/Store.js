@@ -7,7 +7,7 @@ const API = axios.create({
   baseURL: 'http://123.206.89.141:3000',
   timeout: 15 * 60 * 1000,
   // headers: {
-  //   'Content-Type': 'application/json',
+  //   'Content-Type': 'application/x-www-form-urlencoded',
   // },
   // withCredentials: true,
 });
@@ -41,15 +41,15 @@ export default {
           case 'h5proxy':
             // data.__action = path;
             // post = API.post(path, JSON.stringify(data));
-            // post = API.post(path, encodeURIComponent(JSON.stringify(data)));
             post = API.post(path, data);
+            // console.log(data);
             break;
           default:
             return;
         }
         post
           .then((res) => {
-            const d = res.data;
+            const d = JSON.parse(decodeURIComponent(res.data));
             store.f = new Date();
             store.d = d || {};
             store.o = true;
