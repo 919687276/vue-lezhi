@@ -8,31 +8,51 @@
           <!-- background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"> -->
           <el-menu-item index="1">首页</el-menu-item>
           <el-submenu index="2">
-            <template slot="title">我的工作台1</template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
-            <el-submenu index="2-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="2-4-1">选项1</el-menu-item>
-              <el-menu-item index="2-4-2">选项2</el-menu-item>
-              <el-menu-item index="2-4-3">选项3</el-menu-item>
+            <template slot="title">精选试题</template>
+            <el-submenu index="2-1">
+              <template slot="title">小学</template>
+              <el-menu-item index="2-1-1">语文</el-menu-item>
+              <el-menu-item index="2-1-2">数学</el-menu-item>
+              <el-menu-item index="2-1-3">英语</el-menu-item>
+              <el-menu-item index="2-1-4">科学</el-menu-item>
+              <el-menu-item index="2-1-5">音乐</el-menu-item>
+              <el-menu-item index="2-1-6">美术</el-menu-item>
+              <el-menu-item index="2-1-7">劳技</el-menu-item>
+            </el-submenu>
+            <el-submenu index="2-2">
+              <template slot="title">初中</template>
+              <el-menu-item index="2-4-1">语文</el-menu-item>
+              <el-menu-item index="2-4-2">数学</el-menu-item>
+              <el-menu-item index="2-4-3">英语</el-menu-item>
+              <el-menu-item index="2-4-3">美术</el-menu-item>
+              <el-menu-item index="2-4-3">音乐</el-menu-item>
+              <el-menu-item index="2-4-3">历史与社会</el-menu-item>
             </el-submenu>
           </el-submenu>
           <el-submenu index="3">
-            <template slot="title">我的工作台2</template>
-            <el-menu-item index="3-1">选项1</el-menu-item>
-            <el-menu-item index="3-2">选项2</el-menu-item>
-            <el-menu-item index="3-3">选项3</el-menu-item>
+            <template slot="title">优质视频</template>
+            <el-submenu index="3-1">
+              <template slot="title">小学</template>
+              <el-menu-item index="3-1-1">语文</el-menu-item>
+              <el-menu-item index="3-1-2">数学</el-menu-item>
+              <el-menu-item index="3-1-3">英语</el-menu-item>
+              <el-menu-item index="3-1-4">科学</el-menu-item>
+              <el-menu-item index="3-1-5">音乐</el-menu-item>
+              <el-menu-item index="3-1-6">美术</el-menu-item>
+              <el-menu-item index="3-1-7">劳技</el-menu-item>
+            </el-submenu>
+            <el-submenu index="3-2">
+              <template slot="title">初中</template>
+              <el-menu-item index="3-4-1">语文</el-menu-item>
+              <el-menu-item index="3-4-2">数学</el-menu-item>
+              <el-menu-item index="3-4-3">英语</el-menu-item>
+              <el-menu-item index="3-4-3">美术</el-menu-item>
+              <el-menu-item index="3-4-3">音乐</el-menu-item>
+              <el-menu-item index="3-4-3">历史与社会</el-menu-item>
+            </el-submenu>
           </el-submenu>
-          <el-submenu index="4">
-            <template slot="title">我的工作台3</template>
-            <el-menu-item index="4-1">选项1</el-menu-item>
-            <el-menu-item index="4-2">选项2</el-menu-item>
-            <el-menu-item index="4-3">选项3</el-menu-item>
-          </el-submenu>
-          <!-- <el-menu-item index="3" disabled>消息中心</el-menu-item>
-          <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item> -->
+          <el-menu-item index="4">名师辅导</el-menu-item>
+          <el-menu-item index="5">关于我们</el-menu-item>
         </el-menu>
       </el-col>
       <el-col :span="5" v-if="filters.loggedIn" class="top_style">
@@ -108,11 +128,10 @@ export default {
       this.$router.push({ path: '/RetrievePwd' });
     },
     handleSelect(key) {
-      this.filters.showPage = key;
-      // if (key === '2-1') {
-      //   this.$router.push({ path: '/' });
-      // }
-      console.log(key);
+      this.filters.showPage = undefined;
+      this.$nextTick(() => {
+        this.filters.showPage = key;
+      });
     },
     login() {
       this.spost(this.lg, '/Home/methods/login', {

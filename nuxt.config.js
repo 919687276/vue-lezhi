@@ -27,6 +27,7 @@ export default {
   */
   css: [
     'element-ui/lib/theme-chalk/index.css',
+    'viewerjs/dist/viewer.css',
   ],
   router: {
     // base: '/lz/',
@@ -42,6 +43,7 @@ export default {
     { src: '~plugins/ElementUi.js', ssr: true }, // Element UI
     { src: '~plugins/Post', ssr: true },
     { src: '~plugins/ImgInputer.js', ssr: true }, // 图片上传组件
+    { src: '~plugins/viewer.js', ssr: true }, // 图片查看插件
   ],
   /*
   ** Nuxt.js dev-modules

@@ -5,7 +5,7 @@
     </el-header>
     <el-main style="padding:0px;">
       <IndexPage v-if="ctl.filters.showPage==='1'"></IndexPage>
-      <div v-if="ctl.filters.showPage==='2-1'">111222</div>
+      <QuestionList></QuestionList>
     </el-main>
     <el-footer style="padding:0px;height:auto;background-color: #F5F5F5;">
       <Footer></Footer>
@@ -19,20 +19,15 @@ import axios from 'axios';
 import Header from '~/components/Common/Header.vue';
 import IndexPage from '~/components/Main/IndexPage.vue';
 import Footer from '~/components/Common/Footer.vue';
+import QuestionList from '~/components/Main/QuestionList.vue';
 
 export default {
   components: {
     Header,
     IndexPage,
-    // Swiper,
-    // CourseIntroduction,
-    // SpecialTopic,
-    // HotResources,
     Footer,
+    QuestionList,
   },
-  // created() {
-  //   console.log(this.env);
-  // },
   data() {
     return {
       ctl: {
@@ -43,6 +38,7 @@ export default {
           loggedIn: false,
           user: undefined,
           showPage: '1',
+          model: ['不限', '不限', '不限'],
         },
       },
       rs: this.newStore(),
