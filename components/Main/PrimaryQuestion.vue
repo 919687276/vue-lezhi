@@ -1,5 +1,5 @@
 <template>
-  <div ref="box">
+  <div>
     <div class="headerBreadCrumb">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item><a href="/">首页</a></el-breadcrumb-item>
@@ -156,7 +156,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .headerBreadCrumb{
   height:10vh;
   display:flex;

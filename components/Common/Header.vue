@@ -21,12 +21,12 @@
             </el-submenu>
             <el-submenu index="2-2">
               <template slot="title">初中</template>
-              <el-menu-item index="2-4-1">语文</el-menu-item>
-              <el-menu-item index="2-4-2">数学</el-menu-item>
-              <el-menu-item index="2-4-3">英语</el-menu-item>
-              <el-menu-item index="2-4-3">美术</el-menu-item>
-              <el-menu-item index="2-4-3">音乐</el-menu-item>
-              <el-menu-item index="2-4-3">历史与社会</el-menu-item>
+              <el-menu-item index="2-2-1">语文</el-menu-item>
+              <el-menu-item index="2-2-2">数学</el-menu-item>
+              <el-menu-item index="2-2-3">英语</el-menu-item>
+              <el-menu-item index="2-2-4">美术</el-menu-item>
+              <el-menu-item index="2-2-5">音乐</el-menu-item>
+              <el-menu-item index="2-2-6">历史与社会</el-menu-item>
             </el-submenu>
           </el-submenu>
           <el-submenu index="3">

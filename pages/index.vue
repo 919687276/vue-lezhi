@@ -6,6 +6,7 @@
     <el-main style="padding:0px;">
       <IndexPage v-if="ctl.filters.showPage==='1'"></IndexPage>
       <QuestionList></QuestionList>
+      <VideoList></VideoList>
     </el-main>
     <el-footer style="padding:0px;height:auto;background-color: #F5F5F5;">
       <Footer></Footer>
@@ -20,6 +21,7 @@ import Header from '~/components/Common/Header.vue';
 import IndexPage from '~/components/Main/IndexPage.vue';
 import Footer from '~/components/Common/Footer.vue';
 import QuestionList from '~/components/Main/QuestionList.vue';
+import VideoList from '~/components/Main/VideoList.vue';
 
 export default {
   components: {
@@ -27,6 +29,7 @@ export default {
     IndexPage,
     Footer,
     QuestionList,
+    VideoList,
   },
   data() {
     return {
