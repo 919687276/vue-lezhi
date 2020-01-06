@@ -28,6 +28,9 @@ export default {
   css: [
     'element-ui/lib/theme-chalk/index.css',
     'viewerjs/dist/viewer.css',
+    'vue-video-player/src/custom-theme.css',
+    'video.js/dist/video-js.css',
+    './assets/css/common.css',
   ],
   router: {
     // base: '/lz/',
@@ -38,12 +41,13 @@ export default {
   */
   plugins: [
     // { src: '~plugins/env.js', ssr: true }, // env全局变量
-    { src: '~plugins/Totop.js', ssr: true }, // 返回顶部插件
+    { src: '~plugins/Totop.js', ssr: false }, // 返回顶部插件
     { src: '~plugins/axios.js', ssr: true }, // 原生axios方法
     { src: '~plugins/ElementUi.js', ssr: true }, // Element UI
     { src: '~plugins/Post', ssr: true },
     { src: '~plugins/ImgInputer.js', ssr: true }, // 图片上传组件
     { src: '~plugins/viewer.js', ssr: true }, // 图片查看插件
+    { src: '~plugins/videoPlayer.js', ssr: false }, // 视频播放插件
   ],
   /*
   ** Nuxt.js dev-modules
