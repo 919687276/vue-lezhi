@@ -33,8 +33,8 @@
     </div>
     <div class="videoLine" v-loading="!ts.videoData.o">
       <div v-if="!ts.videoData.d.isExist&&ts.videoData.o" class="noQuestion">暂无试题</div>
-      <div v-else-if="ts.videoData.o" class="videoBox">
-        <div class="BoxItem" v-for="(item,index) in ts.videoData.d.videoData.slice((ctl.currentPage-1)*ctl.pagesize,ctl.currentPage*ctl.pagesize)" :key="index">
+      <div v-else-if="ts.videoData.o" class="videoBox" v-for="(item,index) in ts.videoData.d.videoData.slice((ctl.currentPage-1)*ctl.pagesize,ctl.currentPage*ctl.pagesize)" :key="index">
+        <div class="BoxItem">
           <div class="imgBox"><img src="~assets/images/type-video.png"></div>
           <div class="fontBox">
             <div class="videoTitle">{{item.videoTitle}}</div>
