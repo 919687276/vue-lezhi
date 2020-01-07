@@ -22,30 +22,32 @@
       <div v-if="!ts.ques.d.isExist&&ts.ques.o" class="noQuestion">暂无试题</div>
       <div v-else-if="ts.ques.o" v-for="(item,index) in ts.ques.d.questionData.slice((ctl.currentPage-1)*ctl.pagesize,ctl.currentPage*ctl.pagesize)" :key="index" class="pageBox">
         <div class="questionGrid">
-          <div class="questionTitle">
-            {{item.testTitle}}
+          <div class="imgBox"><img src="~assets/images/type-test.png"></div>
+          <div class="questionItem">
+            <div class="title">{{item.testTitle}}</div>
+            <div class="lineItem">
+              <i class="el-icon-notebook-2"></i>教材：
+              <a class="fontItem" v-for="(material,index) in item.teachingMaterial" :key="index">{{material}}</a>
+            </div>
+            <div class="lineItem">
+              <i class="el-icon-price-tag"></i>标签：
+              <a class="fontItem" v-for="(label,index) in item.label" :key="index">{{label}}</a>
+            </div>
+            <div class="lineItem">
+              <i class="el-icon-edit"></i>难度：{{item.difficult}}</div>
+            <div class="lineItem">
+              <div class="time"><i class="el-icon-time"></i>&nbsp;&nbsp;{{item.time}}</div>
+              <div class="browseTimes"><i class="el-icon-view">&nbsp;&nbsp;{{item.browseTimes}}</i></div>
+              <div class="browseTimes"><i class="el-icon-c-scale-to-original">&nbsp;&nbsp;{{item.size}}</i></div>
+              <div><i class="el-icon-user">&nbsp;&nbsp;{{item.author}}</i></div>
+            </div>
           </div>
-          <div class="questionBoxOne">
-            <div class="questionBoxTwo">
-              <div class="questionBoxThree">
-                <div class="questionBoxThreeItem">教材：{{item.knowledgePoint}}</div>
-                <div class="questionBoxThreeItem">标签：{{item.label}}</div>
-                <div class="questionBoxThreeItem">专辑：{{item.album}}</div>
-                <div class="questionBoxThreeItem">难度：{{item.difficult}}</div>
-              </div>
-              <div class="questionBoxFour">
-                <div :class="'picImg'+index" v-viewer="ctl.options">
-                  <img v-for="(item,index) in item.img" :key="index" :src="item" v-show="false">
-                </div>
-                查看详情：<el-button type="primary" icon="el-icon-view" circle
-                  @click="showPic(index,item.id)"></el-button>
-              </div>
+          <div class="rightBox">
+            <div :class="'picImg'+index" v-viewer="ctl.options">
+              <img v-for="(item,index) in item.img" :key="index" :src="item" v-show="false">
             </div>
-            <div class="bottomBox">
-              <div class="bottomBoxItem"><i class="el-icon-user">作者：{{item.author}}</i></div>
-              <div class="bottomBoxItem"><i class="el-icon-time">时间：{{item.time}}</i></div>
-              <div class="bottomBoxItem"><i class="el-icon-search">浏览次数：{{item.browseTimes}}</i></div>
-            </div>
+            查看详情：<el-button type="primary" icon="el-icon-view" circle
+              @click="showPic(index,item.id)"></el-button>
           </div>
         </div>
       </div>
@@ -62,7 +64,6 @@
         layout="total, sizes, prev, pager, next, jumper">
       </el-pagination>
     </div>
-
   </div>
 </template>
 
@@ -87,7 +88,6 @@ export default {
   data() {
     return {
       ctl: {
-        questionData: undefined,
         isExist: false,
         currentPage: 1,
         total: 0,
@@ -118,7 +118,7 @@ export default {
     this.qryQuestionData();
   },
   beforeDestroy() {
-    this.filters.model = ['不限', '不限', '不限'];
+    this.filters.model = ['不限', '不限', '不限', '不限'];
   },
   methods: {
     qryQuestionData() {
@@ -126,9 +126,9 @@ export default {
       this.ts.ques.o = false;
       this.spost(this.ts.ques, '/SelectedQuestions/methods/qryQuestionData', {
         subject: this.subject,
+        education: this.education,
         year: this.filters.model[0],
         edition: this.filters.model[1],
-        education: this.education,
         grade: this.filters.model[2],
       }).then((rs) => {
         this.ctl.total = rs.d.questionData.length;
@@ -195,15 +195,13 @@ export default {
 }
 .questionGrid{
   display: grid;
-  grid-template-rows: 1fr 5fr;
-  margin:0 30px;
+  grid-template-columns: 1fr 4fr 1fr;
+  padding: 25px 0 15px;
 }
-.questionTitle{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 20px;
-  margin: 5px 0;
+.imgBox{
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 .questionBoxOne{
   display:grid;
@@ -214,32 +212,56 @@ export default {
   display:grid;
   grid-template-columns:4fr 1fr;
 }
-.questionBoxThree{
-  display:grid;
-  grid-template-rows:1fr 1fr 1fr 1fr;
+.fontItem{
+  display: inline-block;
+  padding: 0 10px;
+  margin-left: 10px;
+  color: #666;
+  border-radius: 2px;
+  background: #ebf5ff;
 }
-.questionBoxThreeItem{
-  display: flex;
-  align-items: center;
-}
-.questionBoxFour{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.bottomBox{
-  font-size: 12px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.bottomBoxItem{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.fontItem:hover{
+  background-color: #4B98FF;
+  color: white;
+  cursor: pointer;
 }
 .paginationBox{
   background-color: rgb(245, 245, 245);
   text-align: center;
   padding-top: 20px;
+}
+.questionItem{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  height: 150px;
+}
+.title{
+  font-size:16px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.lineItem{
+  font-size:12px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  line-height: 22px;
+}
+.time{
+  width:140px;
+}
+.browseTimes{
+  width: 70px;
+}
+.rightBox{
+  display:flex;
+  justify-content: left;
+  align-items: center;
+  font-size: 12px;
 }
 </style>

@@ -4,7 +4,7 @@
       <Header></Header>
     </el-header>
     <el-main style="padding:0px;">
-      <IndexPage v-if="ctl.filters.showPage==='1'"></IndexPage>
+      <IndexPage></IndexPage>
       <QuestionList></QuestionList>
       <VideoList></VideoList>
     </el-main>
@@ -36,12 +36,11 @@ export default {
       ctl: {
         session: {
           login: false,
+          user: undefined,
         },
         filters: {
-          loggedIn: false,
-          user: undefined,
           showPage: '1',
-          model: ['不限', '不限', '不限'],
+          model: ['不限', '不限', '不限', '不限'],
         },
       },
       rs: this.newStore(),

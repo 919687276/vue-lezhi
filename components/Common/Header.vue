@@ -43,23 +43,23 @@
             </el-submenu>
             <el-submenu index="3-2">
               <template slot="title">初中</template>
-              <el-menu-item index="3-4-1">语文</el-menu-item>
-              <el-menu-item index="3-4-2">数学</el-menu-item>
-              <el-menu-item index="3-4-3">英语</el-menu-item>
-              <el-menu-item index="3-4-3">美术</el-menu-item>
-              <el-menu-item index="3-4-3">音乐</el-menu-item>
-              <el-menu-item index="3-4-3">历史与社会</el-menu-item>
+              <el-menu-item index="3-2-1">语文</el-menu-item>
+              <el-menu-item index="3-2-2">数学</el-menu-item>
+              <el-menu-item index="3-2-3">英语</el-menu-item>
+              <el-menu-item index="3-2-4">美术</el-menu-item>
+              <el-menu-item index="3-2-5">音乐</el-menu-item>
+              <el-menu-item index="3-2-6">历史与社会</el-menu-item>
             </el-submenu>
           </el-submenu>
           <el-menu-item index="4">名师辅导</el-menu-item>
           <el-menu-item index="5">关于我们</el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span="5" v-if="filters.loggedIn" class="top_style">
+      <el-col :span="5" v-if="session.loggedIn" class="top_style">
         <div class="login_grid">
           <div class="head_portrait"><img class="portrait_img" v-loading="!userImg" :src="userImg"></div>
           <div class="login_or_regist">
-            <el-link type="primary">{{filters.user}}</el-link>
+            <el-link type="primary">{{session.user}}</el-link>
             <el-link type="danger" class="logout_style" @click="logout">退出</el-link>
           </div>
         </div>
@@ -140,8 +140,8 @@ export default {
       }).then(() => {
         if (this.lg.d.isExist) {
           this.dialogFormVisible = false;
-          this.filters.loggedIn = true;
-          this.filters.user = this.lg.d.nickname;
+          this.session.loggedIn = true;
+          this.session.user = this.lg.d.nickname;
           this.userImg = this.lg.d.userimg;
           this.$message({
             message: '登录成功',
@@ -156,8 +156,8 @@ export default {
       });
     },
     logout() {
-      this.filters.loggedIn = false;
-      this.filters.user = undefined;
+      this.session.loggedIn = false;
+      this.session.user = undefined;
       this.$message({
         message: '退出成功',
         type: 'success',

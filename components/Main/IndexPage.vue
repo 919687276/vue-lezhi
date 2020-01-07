@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="filters.showPage==='1'">
     <Swiper></Swiper>
     <CourseIntroduction></CourseIntroduction>
     <SpecialTopic></SpecialTopic>
@@ -14,6 +14,7 @@ import SpecialTopic from '~/components/Index/SpecialTopic.vue';
 import HotResources from '~/components/Index/HotResources.vue';
 
 export default {
+  inject: ['filters'],
   components: {
     Swiper,
     CourseIntroduction,

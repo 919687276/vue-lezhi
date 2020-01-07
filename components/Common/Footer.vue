@@ -161,7 +161,7 @@
         </div>
       </div>
       <div class="cloud-copyright cloud-copyright-about">
-        <p>Copyright © 2018-2020 www.caibo919687276.com. All Rights Reserved. 乐智教育版权所有</p>
+        <p>Copyright © 2018-2022 www.caibo919687276.com. All Rights Reserved. 乐智教育版权所有</p>
         <p class="beian">
           <img src="~assets/images/footer/beiantubiao.png" style="float:left;"/>津公网安备  &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001173">12010302001173号</a>
 
