@@ -269,5 +269,6 @@ export default {
   background-color: rgb(245, 245, 245);
   text-align: center;
   padding-top: 20px;
+  padding-bottom: 10vh;
 }
 </style>

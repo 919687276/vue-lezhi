@@ -1,5 +1,5 @@
 <template>
-  <el-container class="minwidth">
+  <el-container style="min-width:1000px;">
     <el-header height="auto">
       <Header></Header>
     </el-header>
@@ -7,6 +7,7 @@
       <IndexPage></IndexPage>
       <QuestionList></QuestionList>
       <VideoList></VideoList>
+      <TeacherPage></TeacherPage>
     </el-main>
     <el-footer style="padding:0px;height:auto;background-color: #F5F5F5;">
       <Footer></Footer>
@@ -22,6 +23,7 @@ import IndexPage from '~/components/Main/IndexPage.vue';
 import Footer from '~/components/Common/Footer.vue';
 import QuestionList from '~/components/Main/QuestionList.vue';
 import VideoList from '~/components/Main/VideoList.vue';
+import TeacherPage from '~/components/Main/TeacherPage.vue';
 
 export default {
   components: {
@@ -30,6 +32,7 @@ export default {
     Footer,
     QuestionList,
     VideoList,
+    TeacherPage,
   },
   data() {
     return {

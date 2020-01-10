@@ -64,6 +64,7 @@ export default {
   padding: 0 5vw;
   background-color: #F5F5F5;
   min-height:36vh;
+  padding-bottom: 10vh;
 }
 .resourceItem{
   background-color: white;

@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 10vh;">
+  <div>
     <div class="cloud-banner">
       <div class="cloud-bubble-one"></div>
       <div class="cloud-bubble-two"></div>
