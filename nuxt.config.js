@@ -48,6 +48,7 @@ export default {
     { src: '~plugins/ImgInputer.js', ssr: true }, // 图片上传组件
     { src: '~plugins/viewer.js', ssr: true }, // 图片查看插件
     { src: '~plugins/videoPlayer.js', ssr: false }, // 视频播放插件
+    { src: '~plugins/vchart.js', ssr: false }, // v-chart
   ],
   /*
   ** Nuxt.js dev-modules

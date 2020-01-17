@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;">
+    <div class="goldTeacher">
       <div>
         <el-carousel :interval="4000" type="card">
           <el-carousel-item v-for="(item,index) in ctl.teacher" :key="index">
@@ -87,8 +87,31 @@
         </div>
       </div>
     </div>
-    <div style="background-color:#F5F5F5;">
-      <div>echarts地图</div>
+    <div class="individualization">
+      <div class="individualBox">
+        <div>
+          <div class="title">开创个性化教育模式</div>
+          <div class="line"></div>
+        </div>
+        <div class="indLeft">
+          <div class="indLeftFontBox">
+            <div class="indLeftFontTitle">让学生学会 - 知识与技能</div>
+            <div class="indLeftFontContent">每一次的辅导知识自成体系，前后连贯，知识一环扣一环，有利于学生系统的知识和技能的形成</div>
+          </div>
+          <div class="indLeftFontBox">
+            <div class="indLeftFontTitle">让学生会学 - 过程与方法</div>
+            <div class="indLeftFontContent">了解科学探究的过程方法，学会运用观察、实验、查阅资料等多种手段获取信息，并运用比较、分类、归纳、概括等方法对信息进行加工</div>
+          </div>
+          <div class="indLeftFontBox">
+            <div class="indLeftFontTitle">让学生乐学 - 情感态度与价值观</div>
+            <div class="indLeftFontContent">建立学生的各种素质在学科课程培养中的有机联系，对学生的基础性学习能力、发展性学习能力和创新性学习能力进行培养</div>
+          </div>
+        </div>
+      </div>
+      <div v-if="ts.map.o">
+        <ve-map :legend-visible="false" :data="ts.map.d" :settings="ctl.chartSettings"
+          mapGrid="{left: 40%,right: 40%,top: auto,bottom: auto}"></ve-map>
+      </div>
     </div>
     <div class="promitBox">
       <div>
@@ -113,6 +136,9 @@ export default {
   inject: ['filters'],
   data() {
     return {
+      ts: {
+        map: this.newStore(),
+      },
       ctl: {
         wrapperSrc: [
           'http://www.caibo919687276.cn/images/swiper/teacher_wrapper_1.jpg',
@@ -126,7 +152,6 @@ export default {
           'http://www.caibo919687276.cn/images/swiper/tc-1.png',
           'http://www.caibo919687276.cn/images/swiper/tc-2.png',
           'http://www.caibo919687276.cn/images/swiper/tc-3.png',
-          'http://www.caibo919687276.cn/images/swiper/tc-4.png',
           'http://www.caibo919687276.cn/images/swiper/tc-5.png',
           'http://www.caibo919687276.cn/images/swiper/tc-6.png',
           'http://www.caibo919687276.cn/images/swiper/tc-7.png',
@@ -145,9 +170,32 @@ export default {
             img: 'http://www.caibo919687276.cn/images/swiper/section7_3.jpg',
             title: '没效果，退余额',
             desc: '对于课程不满意，支持退款，退款会扣除已上课时费和讲义工本费',
-          }],
+          },
+        ],
+        chartSettings: {
+          position: 'china',
+          label: true,
+          labelMap: {
+            num: '学生人数',
+          },
+          itemStyle: {
+            normal: {
+              borderColor: '#e53964',
+              areaColor: '#FFC6FF',
+            },
+          },
+        },
       },
     };
+  },
+  created() {
+    this.mapServ();
+  },
+  methods: {
+    mapServ() {
+      this.spost(this.ts.map, '/Common/methods/MapServ', {
+      });
+    },
   },
 };
 </script>
@@ -275,7 +323,7 @@ export default {
 .promitBox{
   display:grid;
   grid-template-rows:1fr 3fr;
-  padding: 30px 100px;
+  padding: 50px 100px;
 }
 .promitColumns{
   display:grid;
@@ -307,5 +355,38 @@ export default {
   justify-content: center;
   align-items: center;
   text-align:center;
+}
+.goldTeacher{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  padding: 50px 0px;
+}
+.individualization{
+  background-color:#F5F5F5;
+  padding:50px 100px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+.individualBox{
+  display:grid;
+  grid-template-rows:1fr 4fr;
+}
+.indLeft{
+  display:grid;
+  grid-template-rows:1fr 1fr 1fr;
+}
+.indLeftFontBox{
+  display:grid;
+  grid-template-rows:1fr 3fr;
+  font-size:18px;
+}
+.indLeftFontTitle{
+  color:#e53964;
+  display:flex;
+  align-items: center;
+}
+.indLeftFontContent{
+  color:#383637;
+  display:flex;
 }
 </style>
