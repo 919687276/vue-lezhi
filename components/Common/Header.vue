@@ -55,7 +55,7 @@
           <el-menu-item index="5">关于我们</el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span="5" v-if="session.loggedIn" class="top_style">
+      <el-col :span="5" v-if="session.login" class="top_style">
         <div class="login_grid">
           <div class="head_portrait"><img class="portrait_img" v-loading="!userImg" :src="userImg"></div>
           <div class="login_or_regist">
@@ -140,7 +140,7 @@ export default {
       }).then(() => {
         if (this.lg.d.isExist) {
           this.dialogFormVisible = false;
-          this.session.loggedIn = true;
+          this.session.login = true;
           this.session.user = this.lg.d.nickname;
           this.userImg = this.lg.d.userimg;
           this.$message({
@@ -151,12 +151,11 @@ export default {
           this.$message.error('用户不存在或密码错误');
         }
       }).catch((rs) => {
-        // console.log('err');
         console.log(rs);
       });
     },
     logout() {
-      this.session.loggedIn = false;
+      this.session.login = false;
       this.session.user = undefined;
       this.$message({
         message: '退出成功',

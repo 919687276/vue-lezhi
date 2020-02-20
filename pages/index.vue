@@ -7,7 +7,8 @@
       <IndexPage></IndexPage>
       <QuestionList></QuestionList>
       <VideoList></VideoList>
-      <TeacherPage></TeacherPage>
+      <TeacherPage v-if="ctl.filters.showPage==='4'"></TeacherPage>
+      <About v-if="ctl.filters.showPage==='5'"></About>
     </el-main>
     <el-footer style="padding:0px;height:auto;background-color: #F5F5F5;">
       <Footer></Footer>
@@ -17,13 +18,15 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+// import moment from 'moment';
 import Header from '~/components/Common/Header.vue';
 import IndexPage from '~/components/Main/IndexPage.vue';
 import Footer from '~/components/Common/Footer.vue';
 import QuestionList from '~/components/Main/QuestionList.vue';
 import VideoList from '~/components/Main/VideoList.vue';
 import TeacherPage from '~/components/Main/TeacherPage.vue';
+import About from '~/components/Main/About.vue';
 
 export default {
   components: {
@@ -33,6 +36,7 @@ export default {
     QuestionList,
     VideoList,
     TeacherPage,
+    About,
   },
   data() {
     return {
@@ -46,8 +50,14 @@ export default {
           model: ['不限', '不限', '不限', '不限'],
         },
       },
-      rs: this.newStore(),
+      ts: {
+        addDays: this.newStore(),
+        record: this.newStore(),
+      },
     };
+  },
+  created() {
+    this.updateVisitRecord();
   },
   provide() {
     return {
@@ -56,22 +66,9 @@ export default {
     };
   },
   methods: {
-    async asyncData1() {
-      const [res] = await Promise.all([
-        axios.get('/api/index.php/admin/index/welcome'),
-      ]);
-      console.log(res);
-    },
-    axiostest() {
-      this.$axios
-        .get('/api/index.php/admin/index/welcome')
-        .then((response) => {
-          this.rs.d = response;
-          console.log(this.rs);
-        })
-        .catch((error) => {
-          alert(error);
-        });
+    async updateVisitRecord() {
+      await this.spost(this.ts.addDays, '/About/methods/addVisitDays', {});
+      await this.spost(this.ts.record, '/About/methods/updateAccessUser', {});
     },
   },
 };

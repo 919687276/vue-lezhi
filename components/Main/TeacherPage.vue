@@ -1,5 +1,5 @@
 <template>
-  <div v-if="filters.showPage==='4'">
+  <div>
     <div class="headerBreadCrumb">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item><a href="/">首页</a></el-breadcrumb-item>
@@ -133,7 +133,7 @@
 
 <script>
 export default {
-  inject: ['filters'],
+  // inject: ['filters'],
   data() {
     return {
       ts: {
