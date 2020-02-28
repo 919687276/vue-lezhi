@@ -70,7 +70,7 @@
 <script>
 
 export default {
-  inject: ['filters'],
+  inject: ['filters', 'session'],
   props: {
     subject: {
       require: true,
@@ -145,12 +145,19 @@ export default {
       this.ctl.pagesize = val;
     },
     showPic(index, id) {
-      this.spost(this.ts.browseTimes, '/SelectedQuestions/methods/updateBrowseTimes', {
-        id,
-      });
-      const name = `.picImg${index.toString()}`;
-      const viewer = this.$el.querySelector(name).$viewer;
-      viewer.show();
+      if (this.session.login) {
+        this.spost(this.ts.browseTimes, '/SelectedQuestions/methods/updateBrowseTimes', {
+          id,
+        });
+        const name = `.picImg${index.toString()}`;
+        const viewer = this.$el.querySelector(name).$viewer;
+        viewer.show();
+      } else {
+        this.$message({
+          message: '请登录后查看',
+          type: 'warning',
+        });
+      }
     },
   },
 };

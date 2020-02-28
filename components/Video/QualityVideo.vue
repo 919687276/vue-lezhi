@@ -76,7 +76,7 @@
 
 <script>
 export default {
-  inject: ['filters'],
+  inject: ['filters', 'session'],
   props: {
     subject: {
       require: true,
@@ -153,10 +153,17 @@ export default {
       });
     },
     showVideo(item) {
-      this.addBrowseTimes(item.id);
-      this.playerOptions.sources[0].src = item.src;
-      this.ctl.title = item.videoTitle;
-      this.ctl.dialogVisible = true;
+      if (this.session.login) {
+        this.addBrowseTimes(item.id);
+        this.playerOptions.sources[0].src = item.src;
+        this.ctl.title = item.videoTitle;
+        this.ctl.dialogVisible = true;
+      } else {
+        this.$message({
+          message: '请登录后查看',
+          type: 'warning',
+        });
+      }
     },
     clearVideo() {
       this.playerOptions.sources[0].src = '';
