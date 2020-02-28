@@ -9,6 +9,24 @@
     <div>
       <img style="width:100%;" src="~assets/images/p-banner.png">
     </div>
+    <div style="display:grid;grid-template-rows:1fr 4fr;">
+      <div style="display:flex;justify-content:center;align-items:center;">联系我们</div>
+      <div style="width:80vw;margin:auto;">
+        <ve-amap
+          :settings="chartSettings"
+          :series="chartSeries"
+          :tooltip="chartTooltip"
+          :after-set-option-once="getMap"
+        >
+        </ve-amap>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-rows:1fr 5fr;">
+      <div style="display: flex;justify-content: center;align-items: center;">访客统计</div>
+      <div style="display: flex;justify-content: center;align-items: center;">
+        <ve-line :data="ts.record.d" :settings="ctl.chartSettings" :extend="ctl.extens" width="80vw"></ve-line>
+      </div>
+    </div>
     <div style="margin: 20px 10vw;">
       <div style="display:grid;grid-template-columns: 2fr 1fr;">
         <div style="font-size: 25px;display: flex;align-items: center;">用户留言</div>
@@ -63,7 +81,9 @@
     </div>
   </div>
 </template>
-
+<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=c87eb384e2a929b87f7d9dcfa04f38ed&plugin=AMap.Driving"></script>
+<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 <script>
 import moment from 'moment';
 
@@ -71,6 +91,25 @@ export default {
   inject: ['session'],
   data() {
     return {
+      chartSettings: {
+        key: 'c87eb384e2a929b87f7d9dcfa04f38ed',
+        v: '1.4.3',
+        amap: {
+          resizeEnable: true,
+          center: [116.39, 39.9],
+          zoom: 8,
+          lang: 'zh_en',
+          scrollWheel: false,
+          viewMode: '3D',
+        },
+      },
+      chartTooltip: { show: true },
+      chartSeries: [
+        {
+          type: 'scatter',
+          coordinateSystem: 'amap',
+        },
+      ],
       ctl: {
         form: {
           content: '',
@@ -81,10 +120,23 @@ export default {
         count: 5,
         loading: false,
         dialogFormVisible: false,
+        chartSettings: {
+          labelMap: {
+            accessUser: '访问用户',
+            newMember: '新增会员',
+          },
+          axisSite: { right: ['20'] },
+        },
+        extens: {
+          xAxis: {
+            axisLabel: { interval: 0 },
+          },
+        },
       },
       ts: {
         review: this.newStore(),
         comrate: this.newStore(),
+        record: this.newStore(),
       },
     };
   },
@@ -101,8 +153,57 @@ export default {
   },
   created() {
     this.qryAllReview();
+    this.qryVisitorRecord();
   },
   methods: {
+    getMap(echarts) {
+      const amap = echarts.getModel().getComponent('amap').getAMap();
+      // eslint-disable-next-line no-undef
+      const marker = new AMap.Marker({
+        // eslint-disable-next-line no-undef
+        position: new AMap.LngLat(117.1993700000, 39.0851000000), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+        title: '天津',
+      });
+      amap.add(marker);
+      amap.plugin([
+        'AMap.ToolBar',
+        'AMap.Scale',
+        'AMap.OverView',
+        'AMap.Geolocation',
+      ], () => {
+        // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+        // eslint-disable-next-line no-undef
+        amap.addControl(new AMap.ToolBar());
+        // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+        // eslint-disable-next-line no-undef
+        amap.addControl(new AMap.Scale());
+        // 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+        // eslint-disable-next-line no-undef
+        amap.addControl(new AMap.OverView({ isOpen: true }));
+        // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+        // eslint-disable-next-line no-undef
+        amap.addControl(new AMap.Geolocation());
+      });
+      // amap.plugin([
+      //   'AMap.Driving',
+      // ], () => {
+      //   // eslint-disable-next-line no-undef
+      //   const driving = new AMap.Driving({
+      //     map: amap,
+      //     panel: 'panel',
+      //   });
+      //   // console.log(driving.search());
+      //   // eslint-disable-next-line no-undef
+      //   driving.search(new AMap.LngLat(116.39, 39.9), new AMap.LngLat(117.1993700000, 39.0851000000), (status, result) => {
+      //   // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+      //     if (status === 'complete') {
+      //       console.log('绘制驾车路线完成');
+      //     } else {
+      //       console.log(`获取驾车数据失败：${result}`);
+      //     }
+      //   });
+      // });
+    },
     load() {
       this.ctl.loading = true;
       setTimeout(() => {
@@ -120,6 +221,10 @@ export default {
         for (let i = 0; i < (rs.d.review.length < 5 ? rs.d.review.length : 5); i += 1) {
           this.ctl.reviewList.push(rs.d.review[i]);
         }
+      });
+    },
+    qryVisitorRecord() {
+      this.spost(this.ts.record, '/About/methods/qryVisitorRecord', {
       });
     },
     leaveMessage() {

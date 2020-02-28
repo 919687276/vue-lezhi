@@ -1,20 +1,22 @@
 <template>
-  <el-container style="min-width:1000px;">
-    <el-header height="auto">
-      <Header></Header>
-    </el-header>
-    <el-main style="padding:0px;">
-      <IndexPage></IndexPage>
-      <QuestionList></QuestionList>
-      <VideoList></VideoList>
-      <TeacherPage v-if="ctl.filters.showPage==='4'"></TeacherPage>
-      <About v-if="ctl.filters.showPage==='5'"></About>
-    </el-main>
-    <el-footer style="padding:0px;height:auto;background-color: #F5F5F5;">
-      <Footer></Footer>
-    </el-footer>
-    <vueToTop color="#2097F3" :top="200" :type="3" :size="35"></vueToTop>
-  </el-container>
+  <div>
+    <el-container style="min-width:1000px;">
+      <el-header height="auto">
+        <Header></Header>
+      </el-header>
+      <el-main style="padding:0px;">
+        <IndexPage></IndexPage>
+        <QuestionList></QuestionList>
+        <VideoList></VideoList>
+        <TeacherPage v-if="ctl.filters.showPage==='4'"></TeacherPage>
+        <About v-if="ctl.filters.showPage==='5'"></About>
+      </el-main>
+      <el-footer style="padding:0px;height:auto;background-color: #F5F5F5;">
+        <Footer></Footer>
+      </el-footer>
+      <vueToTop color="#2097F3" :top="200" :type="3" :size="35"></vueToTop>
+    </el-container>
+  </div>
 </template>
 
 <script>
@@ -56,7 +58,7 @@ export default {
       },
     };
   },
-  created() {
+  mounted() {
     this.updateVisitRecord();
   },
   provide() {

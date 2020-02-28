@@ -153,6 +153,7 @@ export default {
       sm: this.newStore(),
       ru: this.newStore(),
       cd: this.newStore(),
+      newMember: this.newStore(),
       // 验证码
       iscansend: false,
       timershow: true,
@@ -269,6 +270,7 @@ export default {
       }
     },
     registerSuccess() {
+      this.spost(this.newMember, '/About/methods/addnewMember', {});
       this.$message({
         message: '恭喜您,注册成功',
         type: 'success',

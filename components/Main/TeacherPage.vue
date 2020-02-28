@@ -188,7 +188,7 @@ export default {
       },
     };
   },
-  created() {
+  mounted() {
     this.mapServ();
   },
   methods: {
