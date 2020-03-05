@@ -75,7 +75,7 @@
       </el-col>
     </el-row>
     <!-- 登录表单dialog开始 -->
-    <el-dialog title="登录" :visible.sync="dialogFormVisible" :center="true">
+    <el-dialog title="登录" :visible.sync="dialogFormVisible" :center="true" class="loginDialog">
       <el-form>
         <el-form-item label="手机号:" label-width="200px">
           <el-col :span="16">
@@ -215,5 +215,8 @@ export default {
 }
 .logout_style{
   margin-left: 5px;
+}
+.loginDialog{
+  min-width: 550px;
 }
 </style>

@@ -75,11 +75,14 @@ export default {
   padding-left:10px;
 }
 .leftImgBox{
-  padding:20px 25px;
+  padding:0px 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .letfImg{
   width:100%;
-  height:100%;
+  /* height:100%; */
 }
 .right{
   padding:5px 20px;
