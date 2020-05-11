@@ -23,8 +23,7 @@ class PromiseState {
     ts.s += 1;
     ts.m = '';
     ts.d = {};
-    // 记录下调用类型，路径，参数
-    if (t)(ts.t = t);
+    if (t)(ts.t = t);// 记录下调用类型，路径，参数
     if (u)(ts.u = u);
     if (r)(ts.r = r);
 

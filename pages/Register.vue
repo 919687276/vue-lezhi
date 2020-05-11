@@ -31,7 +31,8 @@
             </el-col>
             <el-col :span="1"><div style="height:1px;"></div></el-col>
             <el-col :span="8">
-              <el-button icon="el-icon-mobile-phone" @click="sendCode" type="primary" v-if="timershow">
+              <el-button icon="el-icon-mobile-phone" @click="sendCode" type="primary"
+                v-if="timershow">
                 <span>获取验证码</span>
               </el-button>
               <el-button icon="el-icon-mobile-phone" type="primary"
@@ -105,6 +106,7 @@ export default {
         }).then((rs) => {
           if (rs.d.isExist) {
             callback(new Error('该手机号已被注册'));
+            this.iscansend = false;
           } else {
             this.iscansend = true;
             callback();
@@ -225,12 +227,18 @@ export default {
             type: 'warning',
           });
         });
-      } else if (!this.ruleForm.phone) {
+      } else {
         this.$message({
-          message: '请输入您的手机号',
+          message: '请输入正确的手机号',
           type: 'warning',
         });
       }
+      // else if (!this.ruleForm.phone) {
+      //   this.$message({
+      //     message: '请输入您的手机号',
+      //     type: 'warning',
+      //   });
+      // }
     },
     submitForm(formName) {
       if (this.ruleForm.userimg) {
