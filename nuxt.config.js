@@ -67,7 +67,7 @@ export default {
     [
       '/api/', // 拦截目录
       {
-        target: 'http://www.caibo919687276.cn', // 代理api主机
+        target: '81.70.168.101', // 代理api主机
         changeOrigin: true,
         pathRewrite: { '^/api/': '' },
       },
