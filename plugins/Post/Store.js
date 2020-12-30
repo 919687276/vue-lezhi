@@ -4,7 +4,7 @@ import PromiseState from './PromiseState';
 
 const API = axios.create({
   // baseURL: 'http://www.caibo919687276.cn',
-  baseURL: 'http://123.206.89.141:3000',
+  baseURL: 'http://81.70.168.101:3000',
   timeout: 15 * 60 * 1000,
   // headers: {
   //   'Content-Type': 'application/x-www-form-urlencoded',
